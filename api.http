@@ -1,0 +1,51 @@
+### Create User
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "name": "Tata da Silva",
+  "email": "tatdwadawa@gmail.com",
+  "role": "user",
+  "password": "123456@"
+}
+
+
+### Login
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "tata@gmail.com",
+  "password": "123456@1234"
+}
+
+###
+
+### Refresh Token
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.refreshToken}}"
+}
+
+
+### Forgot Password
+# @name forgot
+POST http://localhost:3000/auth/forgot
+Content-Type: application/json
+
+{
+  "email": "tata@gmail.com"
+}
+
+
+### Reset Password
+POST http://localhost:3000/auth/reset-password
+Content-Type: application/json
+
+{
+  "resetToken": "{{ forgot.response.body.resetToken }}",
+  "newPassword": "123456@1234"
+}

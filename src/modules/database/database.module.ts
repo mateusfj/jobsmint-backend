@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModel } from 'src/infrastructure/repositories/auth/typeorm/auth.model';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DB,
-        entities: [],
+        entities: [AuthModel],
         autoLoadEntities: true,
         synchronize: true,
       }),
