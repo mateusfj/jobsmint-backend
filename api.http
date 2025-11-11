@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "name": "Tata da Silva",
-  "email": "tatdwadawa@gmail.com",
+  "name": "Mateus Sousa",
+  "email": "teteu@gmail.com",
   "role": "user",
   "password": "123456@"
 }
@@ -16,14 +16,14 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "tata@gmail.com",
+  "email": "teteu@gmail.com",
   "password": "123456@1234"
 }
 
 ###
 
 ### Refresh Token
-POST http://localhost:3000/auth/refresh-token
+POST http://localhost:3000/auth/refresh
 Content-Type: application/json
 
 {
@@ -37,7 +37,7 @@ POST http://localhost:3000/auth/forgot
 Content-Type: application/json
 
 {
-  "email": "tata@gmail.com"
+  "email": "teteu@gmail.com"
 }
 
 
@@ -47,5 +47,6 @@ Content-Type: application/json
 
 {
   "resetToken": "{{ forgot.response.body.resetToken }}",
+  "currentPassword": "123456@",
   "newPassword": "123456@1234"
 }

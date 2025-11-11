@@ -1,28 +1,22 @@
-import * as bcrypt from 'bcrypt';
-
 import {
   inputResetPasswordAuthDTO,
   outputResetPasswordAuthDTO,
 } from './reset-password.auth.dto';
-import { AuthInterfaceRepository } from 'src/core/domain/entities/auth/repository/auth.repository.interface';
-import {
-  JwtInterface,
-  JwtTokenType,
-} from 'src/core/shared/jwt/jwt.auth.interface';
-import {
-  NotFoundDomainException,
-  ValidationDomainException,
-} from 'src/core/shared/exceptions/domain.exceptions';
+
+import { JwtInterface, JwtTokenType } from 'src/core/shared/jwt/jwt.interface';
+import { ValidationDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+
+import { UpdatePasswordUserUseCase } from '../../user/update-password/update-password.user.usecase';
 
 export class ResetPasswordAuthUseCase {
   constructor(
-    private readonly authRepository: AuthInterfaceRepository,
+    private readonly updatePasswordUserUseCase: UpdatePasswordUserUseCase,
     private readonly jwtService: JwtInterface,
   ) {}
   async execute(
     input: inputResetPasswordAuthDTO,
   ): Promise<outputResetPasswordAuthDTO> {
-    const { resetToken, newPassword } = input;
+    const { resetToken, newPassword, currentPassword } = input;
 
     const decoded = await this.jwtService.verify(resetToken);
 
@@ -34,16 +28,12 @@ export class ResetPasswordAuthUseCase {
       throw new ValidationDomainException('Invalid token payload');
     }
 
-    const user = await this.authRepository.findOne(decoded.sub);
+    const response = await this.updatePasswordUserUseCase.execute({
+      userId: decoded.sub,
+      currentPassword,
+      newPassword,
+    });
 
-    if (!user) {
-      throw new NotFoundDomainException('User not found');
-    }
-
-    user.password = await bcrypt.hash(newPassword, 10);
-
-    await this.authRepository.update(user);
-
-    return { message: 'Password reset successfully' };
+    return response;
   }
 }

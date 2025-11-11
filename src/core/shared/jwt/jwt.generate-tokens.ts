@@ -1,5 +1,5 @@
-import { Auth } from 'src/core/domain/entities/auth/entity/auth.entity';
-import { JwtInterface, JwtTokenType } from './jwt.auth.interface';
+import { User } from 'src/core/domain/entities/user/entity/user.entity';
+import { JwtInterface, JwtTokenType } from './jwt.interface';
 
 export class GenerateTokens {
   email: string;
@@ -8,11 +8,11 @@ export class GenerateTokens {
 
   constructor(
     private readonly jwtService: JwtInterface,
-    auth: Auth,
+    user: User,
   ) {
-    this.id = auth.id;
-    this.email = auth.email;
-    this.role = auth.role;
+    this.id = user.id;
+    this.email = user.email;
+    this.role = user.role;
   }
 
   async generateTokens(): Promise<{

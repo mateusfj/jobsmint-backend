@@ -1,4 +1,4 @@
-import { AuthInterfaceRepository } from 'src/core/domain/entities/auth/repository/auth.repository.interface';
+import { UserInterfaceRepository } from 'src/core/domain/entities/user/repository/user.repository.interface';
 import {
   InputRefreshTokenAuthDTO,
   OutputRefreshTokenAuthDTO,
@@ -7,7 +7,7 @@ import {
   JwtInterface,
   JwtTokenType,
   RefreshTokenPayload,
-} from 'src/core/shared/jwt/jwt.auth.interface';
+} from 'src/core/shared/jwt/jwt.interface';
 import { CacheInterface } from 'src/core/shared/repository/cache.interface';
 import {
   NotFoundDomainException,
@@ -17,7 +17,7 @@ import { GenerateTokens } from 'src/core/shared/jwt/jwt.generate-tokens';
 
 export class RefreshTokenUseCase {
   constructor(
-    private readonly authService: AuthInterfaceRepository,
+    private readonly userRepository: UserInterfaceRepository,
     private readonly jwtService: JwtInterface,
     private readonly cacheService: CacheInterface,
   ) {}
@@ -41,7 +41,7 @@ export class RefreshTokenUseCase {
       throw new ValidationDomainException('Invalid token');
     }
 
-    const user = await this.authService.findOne(payload.sub);
+    const user = await this.userRepository.findOne(payload.sub);
 
     if (!user) {
       throw new NotFoundDomainException('User not found');

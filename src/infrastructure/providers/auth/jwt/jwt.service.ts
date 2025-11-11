@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import {
   JwtInterface,
   RefreshTokenPayload,
-} from 'src/core/shared/jwt/jwt.auth.interface';
+} from 'src/core/shared/jwt/jwt.interface';
 
 @Injectable()
 export class JwtAuth implements JwtInterface {
