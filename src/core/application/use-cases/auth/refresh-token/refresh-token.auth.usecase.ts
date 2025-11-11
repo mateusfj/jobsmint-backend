@@ -1,0 +1,63 @@
+import { UserInterfaceRepository } from 'src/core/domain/entities/user/repository/user.repository.interface';
+import {
+  InputRefreshTokenAuthDTO,
+  OutputRefreshTokenAuthDTO,
+} from './refresh-token.auth.dto';
+import {
+  JwtInterface,
+  JwtTokenType,
+  RefreshTokenPayload,
+} from 'src/core/shared/jwt/jwt.interface';
+import { CacheInterface } from 'src/core/shared/repository/cache.interface';
+import {
+  NotFoundDomainException,
+  ValidationDomainException,
+} from 'src/core/shared/exceptions/domain.exceptions';
+import { GenerateTokens } from 'src/core/shared/jwt/jwt.generate-tokens';
+
+export class RefreshTokenUseCase {
+  constructor(
+    private readonly userRepository: UserInterfaceRepository,
+    private readonly jwtService: JwtInterface,
+    private readonly cacheService: CacheInterface,
+  ) {}
+
+  async execute(
+    input: InputRefreshTokenAuthDTO,
+  ): Promise<OutputRefreshTokenAuthDTO> {
+    const payload: RefreshTokenPayload = await this.jwtService.verify(
+      input.refreshToken,
+    );
+
+    if (!payload || payload.type !== JwtTokenType.REFRESH) {
+      throw new ValidationDomainException('Invalid token');
+    }
+
+    const storedRefreshToken = await this.cacheService.get<string>(
+      `refresh_token_${payload.sub}`,
+    );
+
+    if (!storedRefreshToken || storedRefreshToken !== input.refreshToken) {
+      throw new ValidationDomainException('Invalid token');
+    }
+
+    const user = await this.userRepository.findOne(payload.sub);
+
+    if (!user) {
+      throw new NotFoundDomainException('User not found');
+    }
+
+    const tokenGenerator = new GenerateTokens(this.jwtService, user);
+    const tokens = await tokenGenerator.generateTokens();
+
+    await this.cacheService.del(`refresh_token_${user.id}`);
+
+    await this.cacheService.set(
+      `refresh_token_${user.id}`,
+      tokens.refreshToken,
+      parseInt(process.env.JWT_REFRESH_EXPIRES_IN ?? ''),
+    );
+
+    return tokens;
+  }
+}
