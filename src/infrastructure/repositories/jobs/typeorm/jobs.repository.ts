@@ -9,7 +9,7 @@ import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository
 import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
 
 @Injectable()
-export class JobsRepository implements JobInterfaceRepository {
+export class JobRepository implements JobInterfaceRepository {
   constructor(
     @InjectRepository(JobModel)
     private readonly jobsRepository: Repository<JobModel>,
