@@ -45,7 +45,6 @@ export class Job extends BaseEntity {
     this.employmentType = employmentType;
     this.status = status;
     this.isActive = isActive;
-
     this.validate(this);
 
     if (this.notification.hasErrors()) {

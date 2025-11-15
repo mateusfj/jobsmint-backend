@@ -2,6 +2,9 @@ import { JobRepository } from 'src/infrastructure/repositories/jobs/typeorm/jobs
 import { JOB_REPOSITORY_INTERFACE } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
 import { CreateJobUseCase } from 'src/core/application/use-cases/job/create-job/create.job.usecase';
 import { GetAllJobsUseCase } from 'src/core/application/use-cases/job/get-all-jobs/get.all.job.usecase';
+import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
+import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/delete.job.usecase';
+import { GetOneJobUseCase } from 'src/core/application/use-cases/job/get-one-job/get-one.job.usecase';
 
 export const JOB_PROVIDERS = [
   JobRepository,
@@ -20,6 +23,27 @@ export const JOB_PROVIDERS = [
     provide: GetAllJobsUseCase,
     useFactory: (jobRepository: JobRepository) => {
       return new GetAllJobsUseCase(jobRepository);
+    },
+    inject: [JOB_REPOSITORY_INTERFACE],
+  },
+  {
+    provide: GetOneJobUseCase,
+    useFactory: (jobRepository: JobRepository) => {
+      return new GetOneJobUseCase(jobRepository);
+    },
+    inject: [JOB_REPOSITORY_INTERFACE],
+  },
+  {
+    provide: UpdateJobUseCase,
+    useFactory: (jobRepository: JobRepository) => {
+      return new UpdateJobUseCase(jobRepository);
+    },
+    inject: [JOB_REPOSITORY_INTERFACE],
+  },
+  {
+    provide: DeleteJobUseCase,
+    useFactory: (jobRepository: JobRepository) => {
+      return new DeleteJobUseCase(jobRepository);
     },
     inject: [JOB_REPOSITORY_INTERFACE],
   },

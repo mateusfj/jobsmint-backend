@@ -2,7 +2,14 @@ import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
 import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
 
 import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class JobModel {
@@ -33,4 +40,13 @@ export class JobModel {
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

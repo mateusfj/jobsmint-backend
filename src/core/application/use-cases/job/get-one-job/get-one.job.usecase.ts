@@ -1,18 +1,17 @@
 import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
-import { outputGetAllJobsDTO } from './get.all.job.dto';
+import { inputGetOneJobDTO, outputGetOneJobDTO } from './get-one.job.dto';
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
-import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
 
-export class GetAllJobsUseCase {
+export class GetOneJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}
-  async execute(): Promise<outputGetAllJobsDTO[]> {
-    const jobs = await this.jobRepository.findAll();
+  async execute(input: inputGetOneJobDTO): Promise<outputGetOneJobDTO | null> {
+    const job = await this.jobRepository.findOne(input.id);
 
-    if (!jobs || jobs.length === 0) {
-      throw new NotFoundDomainException('No jobs found');
+    if (!job) {
+      throw new NotFoundDomainException('Job not found');
     }
 
-    return jobs.map((job: Job) => ({
+    return {
       id: job.id,
       title: job.title,
       description: job.description,
@@ -20,7 +19,6 @@ export class GetAllJobsUseCase {
       workMode: job.workMode,
       employmentType: job.employmentType,
       status: job.status,
-      isActive: job.isActive,
-    }));
+    };
   }
 }
