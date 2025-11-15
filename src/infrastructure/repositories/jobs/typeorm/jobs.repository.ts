@@ -32,6 +32,7 @@ export class JobRepository implements JobInterfaceRepository {
       workMode: job.workMode,
       employmentType: job.employmentType,
       status: job.status,
+      isActive: job.isActive,
     });
   }
 
@@ -59,6 +60,7 @@ export class JobRepository implements JobInterfaceRepository {
           workMode: job.workMode,
           employmentType: job.employmentType,
           status: job.status,
+          isActive: job.isActive,
         }),
     );
   }
@@ -77,6 +79,7 @@ export class JobRepository implements JobInterfaceRepository {
       workMode: job.workMode,
       employmentType: job.employmentType,
       status: job.status,
+      isActive: job.isActive,
     });
   }
 
@@ -104,6 +107,7 @@ export class JobRepository implements JobInterfaceRepository {
       workMode: job.workMode,
       employmentType: job.employmentType,
       status: job.status,
+      isActive: job.isActive,
     });
   }
 }

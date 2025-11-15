@@ -13,6 +13,7 @@ export interface JobProps {
   workMode: EWorkMode;
   employmentType: EEmploymentType;
   status: EStatusJob;
+  isActive: boolean;
 }
 
 export class Job extends BaseEntity {
@@ -23,6 +24,7 @@ export class Job extends BaseEntity {
   workMode: EWorkMode;
   employmentType: EEmploymentType;
   status: EStatusJob;
+  isActive: boolean;
 
   constructor({
     id,
@@ -32,6 +34,7 @@ export class Job extends BaseEntity {
     workMode,
     employmentType,
     status,
+    isActive,
   }: JobProps) {
     super();
     this.id = id ?? '';
@@ -41,6 +44,8 @@ export class Job extends BaseEntity {
     this.workMode = workMode;
     this.employmentType = employmentType;
     this.status = status;
+    this.isActive = isActive;
+
     this.validate(this);
 
     if (this.notification.hasErrors()) {

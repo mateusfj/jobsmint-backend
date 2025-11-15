@@ -31,6 +31,6 @@ export class JobModel {
   @Column({ type: 'enum', enum: EStatusJob, default: EStatusJob.OPEN })
   status: EStatusJob;
 
-  @Column()
+  @Column({ type: 'boolean', default: true })
   isActive: boolean;
 }

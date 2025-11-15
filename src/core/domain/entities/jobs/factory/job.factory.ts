@@ -11,6 +11,7 @@ export class JobFactory {
       workMode: entity.workMode,
       employmentType: entity.employmentType,
       status: entity.status,
+      isActive: entity.isActive ?? true,
     });
     job.validate(job);
     return job;
