@@ -6,7 +6,7 @@ import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
 import { JobValidatorFactory } from '../factory/job.validator.factory';
 
 export interface JobProps {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   salary: number | null;
@@ -34,7 +34,7 @@ export class Job extends BaseEntity {
     status,
   }: JobProps) {
     super();
-    this.id = id;
+    this.id = id ?? '';
     this.title = title;
     this.description = description;
     this.salary = salary ?? null;
