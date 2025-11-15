@@ -5,7 +5,7 @@ import {
   outputRegisterUserAuthDTO,
 } from 'src/core/application/use-cases/auth/register/register.auth.dto';
 
-import { ERole } from 'src/shared/enums/ERole';
+import { ERole } from 'src/core/shared/utils/enums/ERole';
 
 export class RegisterUserAuthDto implements inputRegisterUserAuthDTO {
   @ApiProperty({

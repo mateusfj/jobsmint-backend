@@ -1,4 +1,4 @@
-import { ERole } from 'src/shared/enums/ERole';
+import { ERole } from 'src/core/shared/utils/enums/ERole';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
