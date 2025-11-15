@@ -6,13 +6,13 @@ import {
   IsString,
 } from 'class-validator';
 import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
-import { EStatusJobs } from 'src/core/shared/utils/enums/EStatusJobs';
+import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
 import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
-import { JobsProps } from '../entity/jobs.entity';
+import { JobProps } from '../entity/job.entity';
 import { ClassValidatorFields } from 'src/core/shared/validator/class-validator-fields';
 import { Notification } from 'src/core/shared/notification/notification';
 
-export class JobsRules {
+export class JobRules {
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -33,11 +33,11 @@ export class JobsRules {
   @IsNotEmpty()
   employmentType: EEmploymentType;
 
-  @IsEnum(EStatusJobs)
+  @IsEnum(EStatusJob)
   @IsNotEmpty()
-  status: EStatusJobs;
+  status: EStatusJob;
 
-  constructor(props: JobsProps) {
+  constructor(props: JobProps) {
     this.title = props.title;
     this.description = props.description;
     this.salary = props.salary;
@@ -47,8 +47,8 @@ export class JobsRules {
   }
 }
 
-export class JobsValidator extends ClassValidatorFields {
-  validate(notification: Notification, entity: JobsProps): boolean {
-    return super.validate(notification, new JobsRules(entity));
+export class JobValidator extends ClassValidatorFields {
+  validate(notification: Notification, entity: JobProps): boolean {
+    return super.validate(notification, new JobRules(entity));
   }
 }

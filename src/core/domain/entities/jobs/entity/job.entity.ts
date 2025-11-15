@@ -1,28 +1,28 @@
 import { BaseEntity } from 'src/core/shared/base-entity/base-entity.abstract';
 import { NotificationError } from 'src/core/shared/exceptions/domain.exceptions';
 import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
-import { EStatusJobs } from 'src/core/shared/utils/enums/EStatusJobs';
+import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
 import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
-import { JobsValidatorFactory } from '../factory/jobs.validator.factory';
+import { JobValidatorFactory } from '../factory/job.validator.factory';
 
-export interface JobsProps {
+export interface JobProps {
   id: string;
   title: string;
   description: string;
   salary: number | null;
   workMode: EWorkMode;
   employmentType: EEmploymentType;
-  status: EStatusJobs;
+  status: EStatusJob;
 }
 
-export class Jobs extends BaseEntity {
+export class Job extends BaseEntity {
   id: string;
   title: string;
   description: string;
   salary: number | null;
   workMode: EWorkMode;
   employmentType: EEmploymentType;
-  status: EStatusJobs;
+  status: EStatusJob;
 
   constructor({
     id,
@@ -32,7 +32,7 @@ export class Jobs extends BaseEntity {
     workMode,
     employmentType,
     status,
-  }: JobsProps) {
+  }: JobProps) {
     super();
     this.id = id;
     this.title = title;
@@ -48,8 +48,8 @@ export class Jobs extends BaseEntity {
     }
   }
 
-  validate(entity: Jobs) {
-    const validator = JobsValidatorFactory.create();
+  validate(entity: Job) {
+    const validator = JobValidatorFactory.create();
     validator.validate(this.notification, entity);
   }
 }

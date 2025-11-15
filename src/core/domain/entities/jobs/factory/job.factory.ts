@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid';
-import { Jobs, JobsProps } from '../entity/jobs.entity';
+import { Job, JobProps } from '../entity/job.entity';
 
-export class JobsFactory {
-  static create(entity: JobsProps): Jobs {
-    const jobs = new Jobs({
+export class JobFactory {
+  static create(entity: JobProps): Job {
+    const job = new Job({
       id: uuid(),
       title: entity.title,
       description: entity.description,
@@ -12,7 +12,7 @@ export class JobsFactory {
       employmentType: entity.employmentType,
       status: entity.status,
     });
-    jobs.validate(jobs);
-    return jobs;
+    job.validate(job);
+    return job;
   }
 }

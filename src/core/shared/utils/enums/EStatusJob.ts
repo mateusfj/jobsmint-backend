@@ -1,4 +1,4 @@
-export enum EStatusJobs {
+export enum EStatusJob {
   OPEN = 'open',
   CLOSED = 'closed',
   PAUSED = 'paused',

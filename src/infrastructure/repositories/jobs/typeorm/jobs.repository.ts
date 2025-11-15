@@ -4,18 +4,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
-import { JobsModel } from './jobs.model';
-import { JobsInterfaceRepository } from 'src/core/domain/entities/jobs/repository/jobs.repository.interface';
-import { Jobs } from 'src/core/domain/entities/jobs/entity/jobs.entity';
+import { JobModel } from './jobs.model';
+import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
+import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
 
 @Injectable()
-export class JobsRepository implements JobsInterfaceRepository {
+export class JobsRepository implements JobInterfaceRepository {
   constructor(
-    @InjectRepository(JobsModel)
-    private readonly jobsRepository: Repository<JobsModel>,
+    @InjectRepository(JobModel)
+    private readonly jobsRepository: Repository<JobModel>,
   ) {}
 
-  async findByTitle(title: string): Promise<Jobs | null> {
+  async findByTitle(title: string): Promise<Job | null> {
     const job = await this.jobsRepository.findOne({
       where: { title: title },
     });
@@ -24,7 +24,7 @@ export class JobsRepository implements JobsInterfaceRepository {
       return null;
     }
 
-    return new Jobs({
+    return new Job({
       id: job.id,
       title: job.title,
       description: job.description,
@@ -35,7 +35,7 @@ export class JobsRepository implements JobsInterfaceRepository {
     });
   }
 
-  async create(data: Jobs): Promise<void> {
+  async create(data: Job): Promise<void> {
     await this.jobsRepository.save({
       id: data.id,
       title: data.title,
@@ -47,11 +47,11 @@ export class JobsRepository implements JobsInterfaceRepository {
     });
   }
 
-  async findAll(): Promise<Jobs[]> {
+  async findAll(): Promise<Job[]> {
     const jobs = await this.jobsRepository.find();
     return jobs.map(
       (job) =>
-        new Jobs({
+        new Job({
           id: job.id,
           title: job.title,
           description: job.description,
@@ -62,14 +62,14 @@ export class JobsRepository implements JobsInterfaceRepository {
         }),
     );
   }
-
-  async findOne(id: string): Promise<Jobs> {
+  Job;
+  async findOne(id: string): Promise<Job> {
     const job = await this.jobsRepository.findOne({ where: { id } });
 
     if (!job) {
       throw new NotFoundDomainException('Job not found');
     }
-    return new Jobs({
+    return new Job({
       id: job.id,
       title: job.title,
       description: job.description,
@@ -88,7 +88,7 @@ export class JobsRepository implements JobsInterfaceRepository {
     await this.jobsRepository.softDelete({ id });
   }
 
-  async update(data: Jobs): Promise<Jobs> {
+  async update(data: Job): Promise<Job> {
     const job = await this.jobsRepository.findOne({ where: { id: data.id } });
     if (!job) {
       throw new NotFoundDomainException('Job not found');
@@ -96,7 +96,7 @@ export class JobsRepository implements JobsInterfaceRepository {
 
     await this.jobsRepository.save(job);
 
-    return new Jobs({
+    return new Job({
       id: job.id,
       title: job.title,
       description: job.description,

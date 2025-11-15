@@ -1,10 +1,11 @@
 import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
-import { EStatusJobs } from 'src/core/shared/utils/enums/EStatusJobs';
+import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
+
 import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class JobsModel {
+export class JobModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -27,8 +28,8 @@ export class JobsModel {
   })
   employmentType: EEmploymentType;
 
-  @Column({ type: 'enum', enum: EStatusJobs, default: EStatusJobs.OPEN })
-  status: EStatusJobs;
+  @Column({ type: 'enum', enum: EStatusJob, default: EStatusJob.OPEN })
+  status: EStatusJob;
 
   @Column()
   isActive: boolean;
