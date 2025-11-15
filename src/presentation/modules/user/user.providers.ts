@@ -1,4 +1,3 @@
-import { CreateUserUseCase } from 'src/core/application/use-cases/user/create/create.user.usecase';
 import {
   USER_REPOSITORY_INTERFACE,
   UserInterfaceRepository,
@@ -6,6 +5,7 @@ import {
 
 import { UserRepository } from 'src/infrastructure/repositories/user/typeorm/user.repository';
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
+import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
 
 export const PROVIDERS = [
   UserRepository,

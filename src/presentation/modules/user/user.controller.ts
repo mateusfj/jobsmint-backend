@@ -1,16 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
 import { UpdatePasswordUserDTO } from './dto/reset-password.user.dto';
-import { CreateUserUseCase } from 'src/core/application/use-cases/user/create/create.user.usecase';
-import {
-  inputCreateUserDTO,
-  outputCreateUserDTO,
-} from 'src/core/application/use-cases/user/create/create.user.dto';
 
 import { outputResetPasswordAuthDTO } from 'src/core/application/use-cases/auth/reset-password/reset-password.auth.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
 import { inputUpdatePasswordUserDTO } from 'src/core/application/use-cases/user/update-password/update-password.user.dto';
+import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
+import {
+  inputCreateUserDTO,
+  outputCreateUserDTO,
+} from 'src/core/application/use-cases/user/create-user/create.user.dto';
 
 @Controller('user')
 export class UserController {

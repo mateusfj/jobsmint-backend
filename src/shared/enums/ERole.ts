@@ -1,5 +1,6 @@
 export enum ERole {
   ADMIN = 'admin',
+  CANDIDATE = 'candidate',
   RECRUITER = 'recruiter',
-  USER = 'user',
+  COMPANY = 'company',
 }

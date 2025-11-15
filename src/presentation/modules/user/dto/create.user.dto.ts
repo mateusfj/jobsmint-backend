@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { inputCreateUserDTO } from 'src/core/application/use-cases/user/create/create.user.dto';
+import { inputCreateUserDTO } from 'src/core/application/use-cases/user/create-user/create.user.dto';
 
 import { ERole } from 'src/shared/enums/ERole';
 

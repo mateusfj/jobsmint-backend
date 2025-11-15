@@ -33,6 +33,8 @@ import { RegisterUserAuthDto } from './dto/create.auth.dto';
 import { RegisterUserUseCase } from 'src/core/application/use-cases/auth/register/register.auth.usecase';
 import { LoginAuthDTO } from './dto/login.auth.dto';
 import { RefreshTokenAuthDTO } from './dto/refresh-token.auth.dto';
+import { AUTH_SCHEMA } from 'src/utils/swagger/schema/auth.schema';
+import { SwaggerDocs } from 'src/utils/decorators/swagger.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -45,6 +47,7 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @SwaggerDocs(AUTH_SCHEMA.register)
   async create(
     @Body() body: RegisterUserAuthDto,
   ): Promise<outputRegisterUserAuthDTO> {
@@ -58,6 +61,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @SwaggerDocs(AUTH_SCHEMA.login)
   async login(@Body() body: LoginAuthDTO): Promise<outputLoginAuthDTO> {
     const inputLoginAuthDTO: inputLoginAuthDTO = {
       email: body.email,
@@ -67,6 +71,7 @@ export class AuthController {
   }
 
   @Post('refresh')
+  @SwaggerDocs(AUTH_SCHEMA.refresh)
   async refreshToken(
     @Body() body: RefreshTokenAuthDTO,
   ): Promise<OutputRefreshTokenAuthDTO> {
@@ -77,12 +82,14 @@ export class AuthController {
   }
 
   @Post('forgot')
+  @SwaggerDocs(AUTH_SCHEMA.forgot)
   async forgot(@Body() body: ForgotAuthDto): Promise<outputForgotAuthDTO> {
     const inputForgot: inputForgotAuthDTO = { email: body.email };
     return await this.forgotAuthUseCase.execute(inputForgot);
   }
 
   @Post('reset-password')
+  @SwaggerDocs(AUTH_SCHEMA.resetPassword)
   async resetPassword(
     @Body() body: ResetPasswordAuthDTO,
   ): Promise<outputResetPasswordAuthDTO> {
