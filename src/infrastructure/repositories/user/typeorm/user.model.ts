@@ -15,7 +15,7 @@ export class UserModel {
   @Column()
   password: string;
 
-  @Column({ type: 'enum', enum: ERole, default: ERole.USER })
+  @Column({ type: 'enum', enum: ERole, default: ERole.CANDIDATE })
   role: ERole;
 
   @Column()

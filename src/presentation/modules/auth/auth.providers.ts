@@ -1,4 +1,3 @@
-import { CreateUserUseCase } from 'src/core/application/use-cases/user/create/create.user.usecase';
 import { ForgotAuthUseCase } from 'src/core/application/use-cases/auth/forgot/forgot.auth.usecase';
 import { LoginAuthUseCase } from 'src/core/application/use-cases/auth/login/login.auth.usecase';
 import { RefreshTokenUseCase } from 'src/core/application/use-cases/auth/refresh-token/refresh-token.auth.usecase';
@@ -17,6 +16,7 @@ import { CacheRedis } from 'src/infrastructure/providers/cache/redis/cache.redis
 import { UserRepository } from 'src/infrastructure/repositories/user/typeorm/user.repository';
 import { RegisterUserUseCase } from 'src/core/application/use-cases/auth/register/register.auth.usecase';
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
+import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
 
 export const PROVIDERS = [
   UserRepository,

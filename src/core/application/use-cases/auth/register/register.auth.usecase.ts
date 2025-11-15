@@ -1,8 +1,8 @@
+import { CreateUserUseCase } from '../../user/create-user/create.user.usecase';
 import {
   inputRegisterUserAuthDTO,
   outputRegisterUserAuthDTO,
 } from './register.auth.dto';
-import { CreateUserUseCase } from '../../user/create/create.user.usecase';
 
 export class RegisterUserUseCase {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
