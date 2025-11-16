@@ -1,12 +1,12 @@
 import { UserInterfaceRepository } from 'src/core/domain/entities/user/repository/user.repository.interface';
 import { inputForgotAuthDTO, outputForgotAuthDTO } from './forgot.auth.dto';
-import { JwtInterface, JwtTokenType } from 'src/core/shared/jwt/jwt.interface';
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { TokenServiceInterface } from 'src/core/application/shared/interfaces/token/token.service.interface';
 
 export class ForgotAuthUseCase {
   constructor(
     private readonly userRepository: UserInterfaceRepository,
-    private readonly jwtService: JwtInterface,
+    private readonly tokenService: TokenServiceInterface,
   ) {}
   async execute(input: inputForgotAuthDTO): Promise<outputForgotAuthDTO> {
     const user = await this.userRepository.findByEmail(input.email);
@@ -15,11 +15,8 @@ export class ForgotAuthUseCase {
       throw new NotFoundDomainException('User not found');
     }
 
-    const resetToken: string = await this.jwtService.sign({
-      sub: user.id,
-      email: user.email,
-      type: JwtTokenType.RESET_PASSWORD,
-    });
+    const resetToken: string =
+      await this.tokenService.generateResetPasswordToken(user);
 
     return { resetToken };
   }

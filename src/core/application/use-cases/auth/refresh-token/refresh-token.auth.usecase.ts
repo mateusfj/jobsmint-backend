@@ -4,28 +4,27 @@ import {
   OutputRefreshTokenAuthDTO,
 } from './refresh-token.auth.dto';
 import {
-  JwtInterface,
   JwtTokenType,
   RefreshTokenPayload,
-} from 'src/core/shared/jwt/jwt.interface';
-import { CacheInterface } from 'src/core/shared/repository/cache.interface';
+} from 'src/core/shared/interfaces/jwt/jwt.interface';
+import { CacheInterface } from 'src/core/shared/interfaces/cache/cache.interface';
 import {
   NotFoundDomainException,
   ValidationDomainException,
 } from 'src/core/shared/exceptions/domain.exceptions';
-import { GenerateTokens } from 'src/core/shared/jwt/jwt.generate-tokens';
+import { TokenServiceInterface } from 'src/core/application/shared/interfaces/token/token.service.interface';
 
 export class RefreshTokenUseCase {
   constructor(
     private readonly userRepository: UserInterfaceRepository,
-    private readonly jwtService: JwtInterface,
+    private readonly tokenService: TokenServiceInterface,
     private readonly cacheService: CacheInterface,
   ) {}
 
   async execute(
     input: InputRefreshTokenAuthDTO,
   ): Promise<OutputRefreshTokenAuthDTO> {
-    const payload: RefreshTokenPayload = await this.jwtService.verify(
+    const payload = await this.tokenService.verifyToken<RefreshTokenPayload>(
       input.refreshToken,
     );
 
@@ -47,17 +46,18 @@ export class RefreshTokenUseCase {
       throw new NotFoundDomainException('User not found');
     }
 
-    const tokenGenerator = new GenerateTokens(this.jwtService, user);
-    const tokens = await tokenGenerator.generateTokens();
+    const accessToken = await this.tokenService.generateAccessToken(user);
+    const refreshToken = await this.tokenService.generateRefreshToken(user);
 
+    // TODO: mover para um service de refresh token
     await this.cacheService.del(`refresh_token_${user.id}`);
 
     await this.cacheService.set(
       `refresh_token_${user.id}`,
-      tokens.refreshToken,
+      refreshToken,
       parseInt(process.env.JWT_REFRESH_EXPIRES_IN ?? ''),
     );
 
-    return tokens;
+    return { accessToken, refreshToken };
   }
 }

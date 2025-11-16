@@ -1,27 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import {
-  JwtInterface,
-  RefreshTokenPayload,
-} from 'src/core/shared/jwt/jwt.interface';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
+import { JwtInterface } from 'src/core/shared/interfaces/jwt/jwt.interface';
 
 @Injectable()
 export class JwtAuth implements JwtInterface {
-  constructor(private jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService) {}
 
-  async sign(payload: object, options: object): Promise<string> {
-    const token = await this.jwtService.signAsync(
-      { ...payload },
-      {
-        ...options,
-      },
-    );
-    return token;
+  async sign<T extends object>(
+    payload: T,
+    options?: JwtSignOptions,
+  ): Promise<string> {
+    return this.jwtService.signAsync(payload, {
+      ...options,
+      secret: process.env.JWT_SECRET,
+    });
   }
 
-  async verify(token: string): Promise<RefreshTokenPayload> {
-    return this.jwtService.verifyAsync(token, {
-      secret: process.env.JWT_SECRET_KEY,
+  async verify<T extends object>(token: string): Promise<T> {
+    return await this.jwtService.verifyAsync<T>(token, {
+      secret: process.env.JWT_SECRET,
     });
   }
 }

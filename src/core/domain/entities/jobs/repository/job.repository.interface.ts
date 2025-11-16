@@ -1,4 +1,4 @@
-import { RepositoryInterface } from 'src/core/shared/repository/repository.interface';
+import { RepositoryInterface } from 'src/core/shared/interfaces/repository/repository.interface';
 import { Job } from '../entity/job.entity';
 
 export interface JobInterfaceRepository extends RepositoryInterface<Job> {
