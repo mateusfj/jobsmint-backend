@@ -46,17 +46,16 @@ export class UserRepository implements UserInterfaceRepository {
 
   async findAll(): Promise<User[]> {
     const users = await this.userRepository.find();
-    return users.map(
-      (user) =>
-        new User({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          password: user.password,
-          role: user.role,
-          isActive: user.isActive,
-        }),
-    );
+    return users.map((user) => {
+      return new User({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        role: user.role,
+        isActive: user.isActive,
+      });
+    });
   }
 
   async findOne(id: string): Promise<User> {

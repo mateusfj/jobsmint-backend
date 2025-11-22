@@ -16,7 +16,7 @@ import {
 } from 'src/core/shared/interfaces/cache/cache.interface';
 import { JwtAuth } from 'src/infrastructure/providers/auth/jwt/jwt.service';
 import { CacheRedis } from 'src/infrastructure/providers/cache/redis/cache.redis';
-import { UserRepository } from 'src/infrastructure/repositories/user/typeorm/user.repository';
+import { UserRepository } from 'src/infrastructure/repositories/typeorm/user/user.repository';
 import { RegisterUserUseCase } from 'src/core/application/use-cases/auth/register/register.auth.usecase';
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
 import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';

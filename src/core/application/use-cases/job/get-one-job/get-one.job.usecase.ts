@@ -1,24 +1,22 @@
 import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
 import { inputGetOneJobDTO, outputGetOneJobDTO } from './get-one.job.dto';
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { QueryParamsGetOne } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { ResponseItem } from 'src/core/shared/types/IResponse';
 
 export class GetOneJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}
-  async execute(input: inputGetOneJobDTO): Promise<outputGetOneJobDTO | null> {
-    const job = await this.jobRepository.findOne(input.id);
+
+  async execute(
+    input: inputGetOneJobDTO,
+    query: QueryParamsGetOne,
+  ): Promise<ResponseItem<outputGetOneJobDTO>> {
+    const job = await this.jobRepository.findOneModel(input.id, query);
 
     if (!job) {
       throw new NotFoundDomainException('Job not found');
     }
 
-    return {
-      id: job.id,
-      title: job.title,
-      description: job.description,
-      salary: job.salary,
-      workMode: job.workMode,
-      employmentType: job.employmentType,
-      status: job.status,
-    };
+    return { data: job };
   }
 }

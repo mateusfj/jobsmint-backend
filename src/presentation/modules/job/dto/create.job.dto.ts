@@ -37,9 +37,9 @@ export class CreateJobDto implements inputCreateJobDTO {
   salary: number | null;
 
   @ApiProperty({
-    example: 'on-site',
+    example: 'onsite',
     description:
-      'Modo de trabalho da vaga que pode ser: on-site, remote, hybrid',
+      'Modo de trabalho da vaga que pode ser: onsite, remote, hybrid',
   })
   @IsEnum(EWorkMode)
   @IsString()
@@ -89,7 +89,7 @@ export class CreateJobResponseDto implements outputCreateJobDTO {
   salary: number | null;
 
   @ApiProperty({
-    example: 'on-site',
+    example: 'onsite',
   })
   workMode: EWorkMode;
 

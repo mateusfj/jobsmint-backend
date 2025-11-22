@@ -3,22 +3,22 @@ import { outputGetAllJobsDTO } from 'src/core/application/use-cases/job/get-all-
 
 export class GetAllJobsResponseDto implements outputGetAllJobsDTO {
   @ApiProperty({ example: '1' })
-  id: string;
+  id?: string;
 
   @ApiProperty({ example: 'Frontend Developer' })
-  title: string;
+  title?: string;
   @ApiProperty({ example: 'Descrição da vaga' })
-  description: string;
+  description?: string;
 
   @ApiProperty({ example: 5000, nullable: true })
-  salary: number | null;
+  salary?: number | null;
 
-  @ApiProperty({ example: 'on-site' })
-  workMode: string;
+  @ApiProperty({ example: 'onsite' })
+  workMode?: string;
 
   @ApiProperty({ example: 'clt' })
-  employmentType: string;
+  employmentType?: string;
 
   @ApiProperty({ example: 'open' })
-  status: string;
+  status?: string;
 }

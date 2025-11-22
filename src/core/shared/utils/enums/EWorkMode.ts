@@ -1,5 +1,5 @@
 export enum EWorkMode {
-  FULL_TIME = 'on-site',
+  FULL_TIME = 'onsite',
   REMOTE = 'remote',
   HYBRID = 'hybrid',
 }

@@ -1,4 +1,4 @@
-import { JobModel } from 'src/infrastructure/repositories/jobs/typeorm/jobs.model';
+import { JobModel } from 'src/infrastructure/repositories/typeorm/jobs/jobs.model';
 import {
   CreateJobDto,
   CreateJobResponseDto,

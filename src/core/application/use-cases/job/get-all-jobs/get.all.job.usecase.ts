@@ -1,26 +1,16 @@
 import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
+import { ResponseList } from 'src/core/shared/types/IResponse';
+
 import { outputGetAllJobsDTO } from './get.all.job.dto';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
-import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
+import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
 
 export class GetAllJobsUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}
-  async execute(): Promise<outputGetAllJobsDTO[]> {
-    const jobs = await this.jobRepository.findAll();
 
-    if (!jobs || jobs.length === 0) {
-      throw new NotFoundDomainException('No jobs found');
-    }
-
-    return jobs.map((job: Job) => ({
-      id: job.id,
-      title: job.title,
-      description: job.description,
-      salary: job.salary,
-      workMode: job.workMode,
-      employmentType: job.employmentType,
-      status: job.status,
-      isActive: job.isActive,
-    }));
+  async execute(
+    query: QueryParams,
+  ): Promise<ResponseList<outputGetAllJobsDTO>> {
+    const jobs = await this.jobRepository.findAllModels(query);
+    return jobs;
   }
 }

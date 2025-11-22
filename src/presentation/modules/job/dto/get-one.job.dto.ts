@@ -25,7 +25,7 @@ export class GetOneJobResponseDTO implements outputGetOneJobDTO {
   description: string;
   @ApiProperty({ example: 5000, nullable: true })
   salary: number | null;
-  @ApiProperty({ example: 'on-site' })
+  @ApiProperty({ example: 'onsite' })
   workMode: string;
   @ApiProperty({ example: 'full-time' })
   employmentType: string;

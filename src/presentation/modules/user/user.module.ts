@@ -1,7 +1,7 @@
 import { Module, Provider } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PROVIDERS } from './user.providers';
-import { UserModel } from 'src/infrastructure/repositories/user/typeorm/user.model';
+import { UserModel } from 'src/infrastructure/repositories/typeorm/user/user.model';
 import { UserController } from './user.controller';
 
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';

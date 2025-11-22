@@ -3,7 +3,7 @@ import {
   UserInterfaceRepository,
 } from 'src/core/domain/entities/user/repository/user.repository.interface';
 
-import { UserRepository } from 'src/infrastructure/repositories/user/typeorm/user.repository';
+import { UserRepository } from 'src/infrastructure/repositories/typeorm/user/user.repository';
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
 import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
 

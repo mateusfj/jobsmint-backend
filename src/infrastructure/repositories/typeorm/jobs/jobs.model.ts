@@ -22,7 +22,7 @@ export class JobModel {
   @Column()
   description: string;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'float', nullable: true })
   salary: number | null;
 
   @Column({ type: 'enum', enum: EWorkMode, default: EWorkMode.FULL_TIME })

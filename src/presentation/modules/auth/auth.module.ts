@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthController } from './auth.controller';
 import { PROVIDERS } from './auth.providers';
-import { UserModel } from 'src/infrastructure/repositories/user/typeorm/user.model';
+import { UserModel } from 'src/infrastructure/repositories/typeorm/user/user.model';
 import { AppCacheModule } from '../cache/cache.module';
 import { UserModule } from '../user/user.module';
 

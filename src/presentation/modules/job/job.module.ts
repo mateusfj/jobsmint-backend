@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JobController } from './job.controller';
-import { JobModel } from 'src/infrastructure/repositories/jobs/typeorm/jobs.model';
+import { JobModel } from 'src/infrastructure/repositories/typeorm/jobs/jobs.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JOB_PROVIDERS } from './job.providers';
 

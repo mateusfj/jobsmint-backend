@@ -5,14 +5,14 @@ import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
 
 export class CreateJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}
-  async execute(data: inputCreateJobDTO): Promise<outputCreateJobDTO> {
+  async execute(input: inputCreateJobDTO): Promise<outputCreateJobDTO> {
     const newJob: Job = JobFactory.create({
-      title: data.title,
-      description: data.description,
-      salary: data.salary ?? null,
-      workMode: data.workMode,
-      employmentType: data.employmentType,
-      status: data.status,
+      title: input.title,
+      description: input.description,
+      salary: input.salary ?? null,
+      workMode: input.workMode,
+      employmentType: input.employmentType,
+      status: input.status,
       isActive: true,
     });
 
