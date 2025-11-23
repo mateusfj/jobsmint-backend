@@ -4,7 +4,7 @@ import { Job, JobProps } from '../entity/job.entity';
 export class JobFactory {
   static create(entity: JobProps): Job {
     const job = new Job({
-      id: uuid(),
+      id: entity.id ?? uuid(),
       title: entity.title,
       description: entity.description,
       salary: entity.salary ?? null,

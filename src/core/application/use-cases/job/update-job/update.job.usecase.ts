@@ -15,7 +15,7 @@ export class UpdateJobUseCase {
     }
 
     const updatedJob: Job = JobFactory.create({
-      id: job.id,
+      id: input.id,
       title: input.title ?? job.title,
       description: input.description ?? job.description,
       workMode: input.workMode ?? job.workMode,

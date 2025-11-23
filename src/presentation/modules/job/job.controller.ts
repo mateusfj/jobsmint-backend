@@ -6,6 +6,7 @@ import {
   Delete,
   Param,
   Query,
+  Patch,
 } from '@nestjs/common';
 import { CreateJobDto, CreateJobResponseDto } from './dto/create.job.dto';
 import { inputCreateJobDTO } from 'src/core/application/use-cases/job/create-job/create.job.dto';
@@ -24,6 +25,9 @@ import { GetAllJobsResponseDto } from './dto/get-all.job.dto';
 import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
 import { ResponseItem, ResponseList } from 'src/core/shared/types/IResponse';
+import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
+import { UpdateJobDto } from './dto/update.job.dto';
+import { inputUpdateJobDTO } from 'src/core/application/use-cases/job/update-job/update.job.dto';
 
 @Controller('job')
 export class JobController {
@@ -32,6 +36,7 @@ export class JobController {
     private readonly getAllJobsUseCase: GetAllJobsUseCase,
     private readonly getOneJobUseCase: GetOneJobUseCase,
     private readonly deleteJobUseCase: DeleteJobUseCase,
+    private readonly updateJobUseCase: UpdateJobUseCase,
   ) {}
 
   @Post()
@@ -64,6 +69,21 @@ export class JobController {
   ): Promise<ResponseItem<GetOneJobResponseDTO> | null> {
     const input: inputGetOneJobDTO = { id };
     return this.getOneJobUseCase.execute(input, query);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateJobDto: UpdateJobDto) {
+    const input: inputUpdateJobDTO = {
+      id,
+      title: updateJobDto.title,
+      description: updateJobDto.description,
+      salary: updateJobDto.salary,
+      workMode: updateJobDto.workMode,
+      employmentType: updateJobDto.employmentType,
+      status: updateJobDto.status,
+    };
+
+    return this.updateJobUseCase.execute(input);
   }
 
   @Delete(':id')

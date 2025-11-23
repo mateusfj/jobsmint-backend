@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
 import { JobModel } from './jobs.model';
 import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
 import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
@@ -75,16 +74,8 @@ export class JobRepository implements JobInterfaceRepository {
     await this.jobsRepository.softDelete({ id });
   }
 
-  async update(data: Job): Promise<Job> {
-    const job = await this.jobsRepository.findOne({ where: { id: data.id } });
-    if (!job) {
-      throw new NotFoundDomainException('Job not found');
-    }
-
-    await this.jobsRepository.save(job);
-
-    return JobFactory.create({
-      id: job.id,
+  async update(job: Job): Promise<void> {
+    await this.jobsRepository.update(job.id, {
       title: job.title,
       description: job.description,
       salary: job.salary,

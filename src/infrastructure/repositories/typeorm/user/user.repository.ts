@@ -82,7 +82,7 @@ export class UserRepository implements UserInterfaceRepository {
     await this.userRepository.softDelete({ id });
   }
 
-  async update(data: User): Promise<User> {
+  async update(data: User): Promise<void> {
     const user = await this.userRepository.findOne({ where: { id: data.id } });
     if (!user) {
       throw new NotFoundDomainException('User not found');
@@ -94,14 +94,5 @@ export class UserRepository implements UserInterfaceRepository {
     user.isActive = data.isActive;
 
     await this.userRepository.save(user);
-
-    return new User({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      role: user.role,
-      isActive: user.isActive,
-    });
   }
 }
