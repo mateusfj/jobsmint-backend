@@ -6,6 +6,7 @@ import {
 import { DeleteJobResponseDTO } from 'src/presentation/modules/job/dto/delete.job.dto';
 import { GetAllJobsResponseDto } from 'src/presentation/modules/job/dto/get-all.job.dto';
 import { GetOneJobResponseDTO } from 'src/presentation/modules/job/dto/get-one.job.dto';
+import { UpdateJobDto } from 'src/presentation/modules/job/dto/update.job.dto';
 
 export const JOB_SCHEMA = {
   create: {
@@ -59,6 +60,19 @@ export const JOB_SCHEMA = {
         status: 200,
         description: 'Job deleted successfully',
         type: DeleteJobResponseDTO,
+      },
+    ],
+  },
+
+  update: {
+    method: 'patch' as const,
+    summary: 'Update one job',
+    description: 'This function updates one job',
+    response: [
+      {
+        status: 200,
+        description: 'Job updated successfully',
+        type: UpdateJobDto,
       },
     ],
   },

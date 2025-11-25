@@ -8,7 +8,6 @@ import {
 export class DeleteJobDTO implements inputDeleteJobDTO {
   @ApiProperty({
     example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6',
-    description: 'Id da vaga',
   })
   @IsUUID()
   @IsString()

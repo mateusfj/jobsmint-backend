@@ -12,7 +12,6 @@ import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
 export class CreateJobDto implements inputCreateJobDTO {
   @ApiProperty({
     example: 'Frontend Developer',
-    description: 'Titulo da vaga',
   })
   @IsString()
   @IsNotEmpty()
@@ -21,7 +20,6 @@ export class CreateJobDto implements inputCreateJobDTO {
   @ApiProperty({
     example:
       'A pessoa será responsável por construir e evoluir aplicações web, colaborar com o time de produto e contribuir na arquitetura das soluções.',
-    description: 'Descrição da vaga',
   })
   @IsString()
   @IsNotEmpty()
@@ -29,8 +27,6 @@ export class CreateJobDto implements inputCreateJobDTO {
 
   @ApiProperty({
     example: 5000,
-    description: 'Salário da vaga',
-    required: false,
   })
   @IsNotEmpty()
   @IsOptional()
@@ -38,8 +34,6 @@ export class CreateJobDto implements inputCreateJobDTO {
 
   @ApiProperty({
     example: 'onsite',
-    description:
-      'Modo de trabalho da vaga que pode ser: onsite, remote, hybrid',
   })
   @IsEnum(EWorkMode)
   @IsString()
@@ -48,8 +42,6 @@ export class CreateJobDto implements inputCreateJobDTO {
 
   @ApiProperty({
     example: 'clt',
-    description:
-      'Tipo de contratação da vaga que pode ser: clt, pj, freelance, internship',
   })
   @IsEnum(EEmploymentType)
   @IsString()
@@ -58,7 +50,6 @@ export class CreateJobDto implements inputCreateJobDTO {
 
   @ApiProperty({
     example: 'open',
-    description: 'Status da vaga que pode ser: open, closed, paused',
   })
   @IsEnum(EStatusJob)
   @IsString()

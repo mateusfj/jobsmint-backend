@@ -72,6 +72,7 @@ export class JobController {
   }
 
   @Patch(':id')
+  @SwaggerDocs(JOB_SCHEMA.update)
   update(@Param('id') id: string, @Body() updateJobDto: UpdateJobDto) {
     const input: inputUpdateJobDTO = {
       id,
@@ -82,7 +83,6 @@ export class JobController {
       employmentType: updateJobDto.employmentType,
       status: updateJobDto.status,
     };
-
     return this.updateJobUseCase.execute(input);
   }
 

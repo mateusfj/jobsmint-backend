@@ -10,10 +10,7 @@ import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
 import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
 
 export class UpdateJobDto implements Partial<inputCreateJobDTO> {
-  @ApiProperty({
-    example: 'Frontend Developer',
-    description: 'Titulo da vaga',
-  })
+  @ApiProperty({ example: 'Frontend Developer' })
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -21,45 +18,29 @@ export class UpdateJobDto implements Partial<inputCreateJobDTO> {
   @ApiProperty({
     example:
       'A pessoa será responsável por construir e evoluir aplicações web, colaborar com o time de produto e contribuir na arquitetura das soluções.',
-    description: 'Descrição da vaga',
   })
   @IsString()
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty({
-    example: 5000,
-    description: 'Salário da vaga',
-    required: false,
-  })
+  @ApiProperty({ example: 5000 })
   @IsNotEmpty()
   @IsOptional()
   salary: number | null;
 
-  @ApiProperty({
-    example: 'onsite',
-    description:
-      'Modo de trabalho da vaga que pode ser: onsite, remote, hybrid',
-  })
+  @ApiProperty({ example: 'onsite' })
   @IsEnum(EWorkMode)
   @IsString()
   @IsNotEmpty()
   workMode: EWorkMode;
 
-  @ApiProperty({
-    example: 'clt',
-    description:
-      'Tipo de contratação da vaga que pode ser: clt, pj, freelance, internship',
-  })
+  @ApiProperty({ example: 'clt' })
   @IsEnum(EEmploymentType)
   @IsString()
   @IsNotEmpty()
   employmentType: EEmploymentType;
 
-  @ApiProperty({
-    example: 'open',
-    description: 'Status da vaga que pode ser: open, closed, paused',
-  })
+  @ApiProperty({ example: 'open' })
   @IsEnum(EStatusJob)
   @IsString()
   @IsNotEmpty()
@@ -67,14 +48,10 @@ export class UpdateJobDto implements Partial<inputCreateJobDTO> {
 }
 
 export class CreateJobResponseDto implements outputCreateJobDTO {
-  @ApiProperty({
-    example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6',
-  })
+  @ApiProperty({ example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6' })
   id: string;
 
-  @ApiProperty({
-    example: 'Frontend Developer',
-  })
+  @ApiProperty({ example: 'Frontend Developer' })
   title: string;
 
   @ApiProperty({
@@ -83,23 +60,15 @@ export class CreateJobResponseDto implements outputCreateJobDTO {
   })
   description: string;
 
-  @ApiProperty({
-    example: 5000,
-  })
+  @ApiProperty({ example: 5000 })
   salary: number | null;
 
-  @ApiProperty({
-    example: 'onsite',
-  })
+  @ApiProperty({ example: 'onsite' })
   workMode: EWorkMode;
 
-  @ApiProperty({
-    example: 'clt',
-  })
+  @ApiProperty({ example: 'clt' })
   employmentType: EEmploymentType;
 
-  @ApiProperty({
-    example: 'open',
-  })
+  @ApiProperty({ example: 'open' })
   status: EStatusJob;
 }

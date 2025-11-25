@@ -8,7 +8,6 @@ import {
 export class GetOneJobDTO implements inputGetOneJobDTO {
   @ApiProperty({
     example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6',
-    description: 'Id da vaga',
   })
   @IsUUID()
   @IsString()
@@ -23,7 +22,7 @@ export class GetOneJobResponseDTO implements outputGetOneJobDTO {
   title: string;
   @ApiProperty({ example: 'Descrição da vaga' })
   description: string;
-  @ApiProperty({ example: 5000, nullable: true })
+  @ApiProperty({ example: 5000 })
   salary: number | null;
   @ApiProperty({ example: 'onsite' })
   workMode: string;
