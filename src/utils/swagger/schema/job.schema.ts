@@ -1,11 +1,10 @@
-import { JobModel } from 'src/infrastructure/repositories/typeorm/jobs/jobs.model';
 import {
   CreateJobDto,
   CreateJobResponseDto,
 } from 'src/presentation/modules/job/dto/create.job.dto';
 import { DeleteJobResponseDTO } from 'src/presentation/modules/job/dto/delete.job.dto';
 import { GetAllJobsResponseDto } from 'src/presentation/modules/job/dto/get-all.job.dto';
-import { GetOneJobResponseDTO } from 'src/presentation/modules/job/dto/get-one.job.dto';
+import { GetOneJobResponseDto } from 'src/presentation/modules/job/dto/get-one.job.dto';
 import { UpdateJobDto } from 'src/presentation/modules/job/dto/update.job.dto';
 
 export const JOB_SCHEMA = {
@@ -27,13 +26,18 @@ export const JOB_SCHEMA = {
     method: 'get' as const,
     summary: 'Get all jobs',
     description: 'This function retrieves all jobs',
-    queryParams: Object.keys(JobModel),
+    queryParams: [
+      { name: 'select', type: String },
+      { name: 'sortBy', type: String },
+      { name: 'orderBy', enum: ['asc', 'desc'] },
+      { name: 'page', type: Number },
+      { name: 'limit', type: Number },
+    ],
     response: [
       {
         status: 200,
         description: 'List of all jobs',
         type: GetAllJobsResponseDto,
-        isArray: true,
       },
     ],
   },
@@ -42,11 +46,12 @@ export const JOB_SCHEMA = {
     method: 'get' as const,
     summary: 'Get one job',
     description: 'This function retrieves one job',
+    queryParams: [{ name: 'select', type: String }],
     response: [
       {
         status: 200,
         description: 'One job',
-        type: GetOneJobResponseDTO,
+        type: GetOneJobResponseDto,
       },
     ],
   },

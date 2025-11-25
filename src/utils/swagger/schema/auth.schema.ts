@@ -1,4 +1,3 @@
-import { User } from 'src/core/domain/entities/user/entity/user.entity';
 import { ResponseRegisterUserAuthDto } from 'src/presentation/modules/auth/dto/create.auth.dto';
 import {
   ForgotAuthDto,
@@ -37,7 +36,6 @@ export const AUTH_SCHEMA = {
     summary: 'Login user',
     description: 'This function logs in a user',
     bodyType: LoginAuthDTO,
-    queryParams: Object.keys(User),
     response: [
       {
         status: 200,

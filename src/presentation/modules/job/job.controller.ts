@@ -20,14 +20,14 @@ import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/
 import { inputDeleteJobDTO } from 'src/core/application/use-cases/job/delete-job/delete.job.dto';
 import { inputGetOneJobDTO } from 'src/core/application/use-cases/job/get-one-job/get-one.job.dto';
 import { DeleteJobResponseDTO } from './dto/delete.job.dto';
-import { GetOneJobResponseDTO } from './dto/get-one.job.dto';
-import { GetAllJobsResponseDto } from './dto/get-all.job.dto';
 import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
 import { ResponseItem, ResponseList } from 'src/core/shared/types/IResponse';
 import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
 import { UpdateJobDto } from './dto/update.job.dto';
 import { inputUpdateJobDTO } from 'src/core/application/use-cases/job/update-job/update.job.dto';
+import { GetOneJobOutputDto } from './dto/get-one.job.dto';
+import { GetAllJobsOutputDto } from './dto/get-all.job.dto';
 
 @Controller('job')
 export class JobController {
@@ -57,7 +57,7 @@ export class JobController {
   @SwaggerDocs(JOB_SCHEMA.getAll)
   getAll(
     @Query() query: QueryParamsDto,
-  ): Promise<ResponseList<GetAllJobsResponseDto>> {
+  ): Promise<ResponseList<GetAllJobsOutputDto>> {
     return this.getAllJobsUseCase.execute(query);
   }
 
@@ -66,7 +66,7 @@ export class JobController {
   findOne(
     @Param('id') id: string,
     @Query() query: QueryParamsGetOne,
-  ): Promise<ResponseItem<GetOneJobResponseDTO> | null> {
+  ): Promise<ResponseItem<GetOneJobOutputDto> | null> {
     const input: inputGetOneJobDTO = { id };
     return this.getOneJobUseCase.execute(input, query);
   }

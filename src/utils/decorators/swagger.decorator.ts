@@ -9,12 +9,19 @@ interface Response {
   type?: Type<any>;
 }
 
+interface QueryParamSchema {
+  name: string;
+  type?: Type<any>;
+  enum?: string[];
+  required?: boolean;
+}
+
 interface SwaggerDocsOptions {
   summary: string;
   description?: string;
   method: HttpMethod;
   bodyType?: Type<any>;
-  queryParams?: string[];
+  queryParams?: QueryParamSchema[];
   response?: Response[];
 }
 
@@ -27,8 +34,15 @@ export function SwaggerDocs(options: SwaggerDocsOptions) {
   ];
 
   if (options.queryParams) {
-    options.queryParams.forEach((param: string): void => {
-      decorators.push(ApiQuery({ name: param, required: false }));
+    options.queryParams.forEach((param): void => {
+      decorators.push(
+        ApiQuery({
+          name: param.name,
+          required: param.required ?? false,
+          type: param.type,
+          enum: param.enum,
+        }),
+      );
     });
   }
 
