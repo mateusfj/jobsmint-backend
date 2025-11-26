@@ -43,16 +43,8 @@ export class JobRepository implements JobInterfaceRepository {
     return jobs;
   }
 
-  async create(data: Job): Promise<void> {
-    await this.jobsRepository.save({
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      salary: data.salary,
-      workMode: data.workMode,
-      employmentType: data.employmentType,
-      status: data.status,
-    });
+  async create(job: Job): Promise<void> {
+    await this.jobsRepository.save(job);
   }
 
   async findAll(): Promise<Job[] | null> {

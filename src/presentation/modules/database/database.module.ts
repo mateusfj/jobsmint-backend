@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JobModel } from 'src/infrastructure/repositories/typeorm/jobs/jobs.model';
 import { UserModel } from 'src/infrastructure/repositories/typeorm/user/user.model';
+import { CompanyModule } from '../company/company.module';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { UserModel } from 'src/infrastructure/repositories/typeorm/user/user.mod
         username: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
         database: process.env.POSTGRES_DB,
-        entities: [UserModel, JobModel],
+        entities: [UserModel, JobModel, CompanyModule],
         autoLoadEntities: true,
         synchronize: true,
       }),
