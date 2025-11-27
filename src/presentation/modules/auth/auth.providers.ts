@@ -16,25 +16,22 @@ import {
 } from 'src/core/shared/interfaces/cache/cache.interface';
 import { JwtAuth } from 'src/infrastructure/providers/auth/jwt/jwt.service';
 import { CacheRedis } from 'src/infrastructure/providers/cache/redis/cache.redis';
-import { UserRepository } from 'src/infrastructure/repositories/typeorm/user/user.repository';
 import { RegisterUserUseCase } from 'src/core/application/use-cases/auth/register/register.auth.usecase';
 import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
 import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
 
 import { TokenService } from 'src/core/application/services/token.service';
-import { JwtService } from '@nestjs/jwt';
 import {
   TOKEN_SERVICE_INTERFACE,
   TokenServiceInterface,
 } from 'src/core/application/shared/interfaces/token/token.service.interface';
+import { CreateUserWithCompanyUseCase } from 'src/core/application/use-cases/user/create-user-with-company/create-user-with-company.usecase';
+import {
+  COMPANY_REPOSITORY_INTERFACE,
+  CompanyInterfaceRepository,
+} from 'src/core/domain/entities/company/repository/company.repository.interface';
 
 export const PROVIDERS = [
-  UserRepository,
-  JwtService,
-  {
-    provide: USER_REPOSITORY_INTERFACE,
-    useClass: UserRepository,
-  },
   {
     provide: TOKEN_SERVICE_INTERFACE,
     useFactory: (jwtService: JwtInterface) => {
@@ -113,5 +110,18 @@ export const PROVIDERS = [
       );
     },
     inject: [UpdatePasswordUserUseCase, TOKEN_SERVICE_INTERFACE],
+  },
+  {
+    provide: CreateUserWithCompanyUseCase,
+    useFactory: (
+      createUserUseCase: CreateUserUseCase,
+      companyRepository: CompanyInterfaceRepository,
+    ) => {
+      return new CreateUserWithCompanyUseCase(
+        createUserUseCase,
+        companyRepository,
+      );
+    },
+    inject: [CreateUserUseCase, COMPANY_REPOSITORY_INTERFACE],
   },
 ];

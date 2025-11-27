@@ -1,3 +1,7 @@
+import {
+  CreateUserWithCompanyDto,
+  CreateUserWithCompanyResponseDto,
+} from 'src/presentation/modules/auth/dto/create-user-with-company.auth.dto';
 import { ResponseRegisterUserAuthDto } from 'src/presentation/modules/auth/dto/create.auth.dto';
 import {
   ForgotAuthDto,
@@ -83,6 +87,20 @@ export const AUTH_SCHEMA = {
         status: 200,
         description: 'password reset successfully',
         type: ResponseResetPasswordAuthDTO,
+      },
+    ],
+  },
+
+  createUserWithCompany: {
+    method: 'post' as const,
+    summary: 'Register company and user',
+    description: 'Create a user with role company and link the company to it',
+    bodyType: CreateUserWithCompanyDto,
+    response: [
+      {
+        status: 201,
+        description: 'company and user created successfully',
+        type: CreateUserWithCompanyResponseDto,
       },
     ],
   },

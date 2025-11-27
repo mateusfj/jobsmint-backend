@@ -35,6 +35,12 @@ import { LoginAuthDTO } from './dto/login.auth.dto';
 import { RefreshTokenAuthDTO } from './dto/refresh-token.auth.dto';
 import { AUTH_SCHEMA } from 'src/utils/swagger/schema/auth.schema';
 import { SwaggerDocs } from 'src/utils/decorators/swagger.decorator';
+import {
+  CreateUserWithCompanyResponseDto,
+  CreateUserWithCompanyDto,
+} from './dto/create-user-with-company.auth.dto';
+import { CreateUserWithCompanyUseCase } from 'src/core/application/use-cases/user/create-user-with-company/create-user-with-company.usecase';
+import { inputCreateUserWithCompanyDTO } from 'src/core/application/use-cases/user/create-user-with-company/create-user-with-company.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -44,6 +50,7 @@ export class AuthController {
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
     private readonly forgotAuthUseCase: ForgotAuthUseCase,
     private readonly resetPasswordAuthUseCase: ResetPasswordAuthUseCase,
+    private readonly createUserWithCompanyUseCase: CreateUserWithCompanyUseCase,
   ) {}
 
   @Post('register')
@@ -99,5 +106,23 @@ export class AuthController {
       newPassword: body.newPassword,
     };
     return await this.resetPasswordAuthUseCase.execute(inputResetPassword);
+  }
+
+  @SwaggerDocs(AUTH_SCHEMA.createUserWithCompany)
+  @Post('register-company')
+  async registerUserWithCompany(
+    @Body() body: CreateUserWithCompanyDto,
+  ): Promise<CreateUserWithCompanyResponseDto> {
+    const input: inputCreateUserWithCompanyDTO = {
+      name: body.name,
+      email: body.email,
+      password: body.password,
+      corporate_reason: body.corporate_reason,
+      cnpj: body.cnpj,
+      description: body.description,
+      website: body.website,
+      logo_url: body.logo_url,
+    };
+    return await this.createUserWithCompanyUseCase.execute(input);
   }
 }
