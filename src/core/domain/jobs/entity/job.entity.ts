@@ -1,8 +1,8 @@
-import { BaseEntity } from 'src/core/shared/base-entity/base-entity.abstract';
-import { NotificationError } from 'src/core/shared/exceptions/domain.exceptions';
-import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
-import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
-import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
+import { BaseEntity } from 'src/core/domain/@shared/base-entity/base-entity.abstract';
+import { NotificationError } from 'src/core/domain/@shared/exceptions/domain.exceptions';
+import { EEmploymentType } from 'src/core/domain/@shared/enums/EmploymentType';
+import { EStatusJob } from 'src/core/domain/@shared/enums/EStatusJob';
+import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
 import { JobValidatorFactory } from '../factory/job.validator.factory';
 
 export interface JobProps {

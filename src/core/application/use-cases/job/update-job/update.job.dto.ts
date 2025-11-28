@@ -1,6 +1,6 @@
-import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
-import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
-import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
+import { EEmploymentType } from 'src/core/domain/@shared/enums/EmploymentType';
+import { EStatusJob } from 'src/core/domain/@shared/enums/EStatusJob';
+import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
 
 export interface inputUpdateJobDTO {
   id: string;

@@ -1,12 +1,12 @@
 import * as bcrypt from 'bcrypt';
 import { UserInterfaceRepository } from 'src/core/domain/user/repository/user.repository.interface';
 import { inputLoginAuthDTO, outputLoginAuthDTO } from './login.auth.dto';
-import { CacheInterface } from 'src/core/shared/interfaces/cache/cache.interface';
+import { CacheInterface } from 'src/core/application/@shared/interfaces/cache/cache.interface';
 import {
   NotFoundDomainException,
   UnauthorizedDomainException,
-} from 'src/core/shared/exceptions/domain.exceptions';
-import { TokenServiceInterface } from 'src/core/application/shared/interfaces/token/token.service.interface';
+} from 'src/core/domain/@shared/exceptions/domain.exceptions';
+import { TokenServiceInterface } from 'src/core/application/@shared/interfaces/token/token.service.interface';
 
 export class LoginAuthUseCase {
   constructor(

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
-import { QueryParamsGetOne } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
+import { QueryParamsGetOne } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 
 @Injectable()
 export class BaseFindOneService<T extends ObjectLiteral> {

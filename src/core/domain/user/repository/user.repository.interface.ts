@@ -1,4 +1,4 @@
-import { RepositoryInterface } from 'src/core/shared/interfaces/repository/repository.interface';
+import { RepositoryInterface } from 'src/core/domain/@shared/repository/repository.interface';
 import { User } from '../entity/user.entity';
 
 export interface UserInterfaceRepository extends RepositoryInterface<User> {

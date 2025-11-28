@@ -1,5 +1,5 @@
-import { BaseEntity } from 'src/core/shared/base-entity/base-entity.abstract';
-import { NotificationError } from 'src/core/shared/exceptions/domain.exceptions';
+import { BaseEntity } from 'src/core/domain/@shared/base-entity/base-entity.abstract';
+import { NotificationError } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { CompanyValidatorFactory } from '../factory/company.validator.factory';
 
 export interface CompanyProps {

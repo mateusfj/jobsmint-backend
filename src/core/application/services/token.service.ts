@@ -5,7 +5,7 @@ import {
   JwtTokenType,
   RefreshTokenPayload,
   ResetPasswordPayload,
-} from 'src/core/shared/interfaces/jwt/jwt.interface';
+} from 'src/core/application/@shared/interfaces/jwt/jwt.interface';
 
 export class TokenService {
   constructor(private readonly jwtService: JwtInterface) {}

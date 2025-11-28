@@ -1,8 +1,8 @@
-import { RepositoryInterface } from 'src/core/shared/interfaces/repository/repository.interface';
+import { RepositoryInterface } from 'src/core/domain/@shared/repository/repository.interface';
 import { Job } from '../entity/job.entity';
 
-import { ResponseList } from 'src/core/shared/types/IResponse';
-import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { ResponseList } from 'src/core/domain/@shared/types/IResponse';
+import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
 
 export interface JobInterfaceRepository extends RepositoryInterface<Job> {

@@ -1,4 +1,4 @@
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import {
   inputDeleteCompanyDTO,
   outputDeleteCompanyDTO,

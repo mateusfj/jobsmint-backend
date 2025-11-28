@@ -22,7 +22,10 @@ import { inputGetOneJobDTO } from 'src/core/application/use-cases/job/get-one-jo
 import { DeleteJobResponseDTO } from './dto/delete.job.dto';
 import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
-import { ResponseItem, ResponseList } from 'src/core/shared/types/IResponse';
+import {
+  ResponseItem,
+  ResponseList,
+} from 'src/core/domain/@shared/types/IResponse';
 import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
 import { UpdateJobDto } from './dto/update.job.dto';
 import { inputUpdateJobDTO } from 'src/core/application/use-cases/job/update-job/update.job.dto';

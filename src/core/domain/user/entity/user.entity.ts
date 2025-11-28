@@ -1,8 +1,8 @@
-import { ERole } from 'src/core/shared/utils/enums/ERole';
+import { ERole } from 'src/core/domain/@shared/enums/ERole';
 
 import { UserValidatorFactory } from '../factory/user.validator.factory';
-import { BaseEntity } from 'src/core/shared/base-entity/base-entity.abstract';
-import { NotificationError } from 'src/core/shared/exceptions/domain.exceptions';
+import { BaseEntity } from 'src/core/domain/@shared/base-entity/base-entity.abstract';
+import { NotificationError } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 
 export interface UserProps {
   id?: string;

@@ -6,13 +6,13 @@ import {
 import {
   JwtTokenType,
   RefreshTokenPayload,
-} from 'src/core/shared/interfaces/jwt/jwt.interface';
-import { CacheInterface } from 'src/core/shared/interfaces/cache/cache.interface';
+} from 'src/core/application/@shared/interfaces/jwt/jwt.interface';
+import { CacheInterface } from 'src/core/application/@shared/interfaces/cache/cache.interface';
 import {
   NotFoundDomainException,
   ValidationDomainException,
-} from 'src/core/shared/exceptions/domain.exceptions';
-import { TokenServiceInterface } from 'src/core/application/shared/interfaces/token/token.service.interface';
+} from 'src/core/domain/@shared/exceptions/domain.exceptions';
+import { TokenServiceInterface } from 'src/core/application/@shared/interfaces/token/token.service.interface';
 
 export class RefreshTokenUseCase {
   constructor(

@@ -1,4 +1,4 @@
-import { NotificationErrorProps } from '../notification/notification';
+import { NotificationErrorProps } from 'src/core/domain/@shared/notification/notification';
 
 export class DomainException extends Error {
   constructor(

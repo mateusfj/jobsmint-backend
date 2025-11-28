@@ -1,7 +1,7 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject } from '@nestjs/common';
 import type { Cache } from 'cache-manager';
-import { CacheInterface } from 'src/core/shared/interfaces/cache/cache.interface';
+import { CacheInterface } from 'src/core/application/@shared/interfaces/cache/cache.interface';
 
 export class CacheRedis implements CacheInterface {
   constructor(

@@ -1,4 +1,4 @@
-import { QueryParams } from '../query-params/query-params.interface';
+import { QueryParams } from '../../../application/@shared/interfaces/query-params/query-params.interface';
 
 export interface RepositoryInterface<T> {
   create(data: T): Promise<void>;

@@ -4,12 +4,12 @@ import { Repository } from 'typeorm';
 import { JobModel } from './jobs.model';
 import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { Job } from 'src/core/domain/jobs/entity/job.entity';
-import { ResponseList } from 'src/core/shared/types/IResponse';
+import { ResponseList } from 'src/core/domain/@shared/types/IResponse';
 import { JobFactory } from 'src/core/domain/jobs/factory/job.factory';
 import { BaseFindAllService } from 'src/infrastructure/repositories/typeorm/services/base-find-all.service';
 import { BaseFindOneService } from '../services/base-find-one.service';
 
-import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 import { QueryParamsGetOne } from '../services/dto/base-find-one.dto';
 
 @Injectable()

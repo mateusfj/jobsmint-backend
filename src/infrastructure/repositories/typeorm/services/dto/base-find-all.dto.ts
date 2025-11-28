@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsOptional, IsString, IsEnum } from 'class-validator';
-import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 
 export class QueryParamsDto implements QueryParams {
   @IsOptional()

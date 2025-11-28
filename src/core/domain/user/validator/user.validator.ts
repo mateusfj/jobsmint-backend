@@ -1,9 +1,9 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 import { UserProps } from '../entity/user.entity';
-import { ERole } from 'src/core/shared/utils/enums/ERole';
-import { ClassValidatorFields } from 'src/core/shared/validator/class-validator-fields';
-import { Notification } from 'src/core/shared/notification/notification';
+import { ERole } from 'src/core/domain/@shared/enums/ERole';
+import { ClassValidatorFields } from 'src/core/domain/@shared/validator/class-validator-fields';
+import { Notification } from 'src/core/domain/@shared/notification/notification';
 
 class UserRules {
   @IsString()

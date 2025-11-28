@@ -8,7 +8,7 @@ import {
 import {
   NotFoundDomainException,
   UnauthorizedDomainException,
-} from 'src/core/shared/exceptions/domain.exceptions';
+} from 'src/core/domain/@shared/exceptions/domain.exceptions';
 
 export class UpdatePasswordUserUseCase {
   constructor(private readonly userRepository: UserInterfaceRepository) {}

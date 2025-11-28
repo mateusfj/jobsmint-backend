@@ -1,7 +1,7 @@
 import { Company } from 'src/core/domain/company/entity/company.entity';
 import { inputUpdateCompanyDTO } from './update.company.dto';
 import { CompanyFactory } from 'src/core/domain/company/factory/company.factory';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 
 export class UpdateCompanyUseCase {

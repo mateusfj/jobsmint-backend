@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { UserInterfaceRepository } from 'src/core/domain/user/repository/user.repository.interface';
 import { inputCreateUserDTO, outputCreateUserDTO } from './create.user.dto';
-import { ConflictDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { ConflictDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { UserFactory } from 'src/core/domain/user/factory/user.factory';
 
 export class CreateUserUseCase {

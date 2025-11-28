@@ -5,12 +5,12 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { EEmploymentType } from 'src/core/shared/utils/enums/EmploymentType';
-import { EStatusJob } from 'src/core/shared/utils/enums/EStatusJob';
-import { EWorkMode } from 'src/core/shared/utils/enums/EWorkMode';
+import { EEmploymentType } from 'src/core/domain/@shared/enums/EmploymentType';
+import { EStatusJob } from 'src/core/domain/@shared/enums/EStatusJob';
+import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
 import { JobProps } from '../entity/job.entity';
-import { ClassValidatorFields } from 'src/core/shared/validator/class-validator-fields';
-import { Notification } from 'src/core/shared/notification/notification';
+import { ClassValidatorFields } from 'src/core/domain/@shared/validator/class-validator-fields';
+import { Notification } from 'src/core/domain/@shared/notification/notification';
 
 export class JobRules {
   @IsString()

@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
-import { ERole } from 'src/core/shared/utils/enums/ERole';
+import { ERole } from 'src/core/domain/@shared/enums/ERole';
 import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 import {
   inputCreateUserWithCompanyDTO,

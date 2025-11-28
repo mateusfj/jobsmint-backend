@@ -1,4 +1,4 @@
-import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 
 export type inputGetAllCompaniesDTO = QueryParams;
 

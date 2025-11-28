@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 import { CompanyProps } from '../entity/company.entity';
-import { ClassValidatorFields } from 'src/core/shared/validator/class-validator-fields';
-import { Notification } from 'src/core/shared/notification/notification';
+import { ClassValidatorFields } from 'src/core/domain/@shared/validator/class-validator-fields';
+import { Notification } from 'src/core/domain/@shared/notification/notification';
 
 export class CompanyRules {
   @IsString()

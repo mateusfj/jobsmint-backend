@@ -1,4 +1,4 @@
-import { ERole } from 'src/core/shared/utils/enums/ERole';
+import { ERole } from 'src/core/domain/@shared/enums/ERole';
 
 export interface inputCreateUserWithCompanyDTO {
   name: string;

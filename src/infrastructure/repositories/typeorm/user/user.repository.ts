@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { UserModel } from './user.model';
 import { UserInterfaceRepository } from 'src/core/domain/user/repository/user.repository.interface';
 import { User } from 'src/core/domain/user/entity/user.entity';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 
 @Injectable()
 export class UserRepository implements UserInterfaceRepository {

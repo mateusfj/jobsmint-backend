@@ -1,8 +1,8 @@
 import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 import { inputGetOneCompanyDTO } from './get-one.company.dto';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
-import { ResponseItem } from 'src/core/shared/types/IResponse';
+import { ResponseItem } from 'src/core/domain/@shared/types/IResponse';
 
 export class GetOneCompanyUseCase {
   constructor(private readonly companyRepository: CompanyInterfaceRepository) {}

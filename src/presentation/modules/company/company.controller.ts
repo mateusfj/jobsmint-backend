@@ -22,7 +22,10 @@ import { inputGetOneCompanyDTO } from 'src/core/application/use-cases/company/ge
 import { DeleteCompanyResponseDto } from './dto/delete.company.dto';
 import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
-import { ResponseItem, ResponseList } from 'src/core/shared/types/IResponse';
+import {
+  ResponseItem,
+  ResponseList,
+} from 'src/core/domain/@shared/types/IResponse';
 import { UpdateCompanyDto } from './dto/update.company.dto';
 import { inputUpdateCompanyDTO } from 'src/core/application/use-cases/company/update-company/update.company.dto';
 import { UpdateCompanyUseCase } from 'src/core/application/use-cases/company/update-company/update.company.usecase';

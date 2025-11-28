@@ -1,8 +1,8 @@
 import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { inputGetOneJobDTO, outputGetOneJobDTO } from './get-one.job.dto';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
-import { QueryParamsGetOne } from 'src/core/shared/interfaces/query-params/query-params.interface';
-import { ResponseItem } from 'src/core/shared/types/IResponse';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
+import { QueryParamsGetOne } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
+import { ResponseItem } from 'src/core/domain/@shared/types/IResponse';
 
 export class GetOneJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}

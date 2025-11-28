@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
-import { ResponseList } from 'src/core/shared/types/IResponse';
-import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
-import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { ResponseList } from 'src/core/domain/@shared/types/IResponse';
+import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
+import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 
 @Injectable()
 export class BaseFindAllService<T extends ObjectLiteral> {

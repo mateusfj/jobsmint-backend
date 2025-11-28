@@ -1,8 +1,8 @@
 import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
-import { ResponseList } from 'src/core/shared/types/IResponse';
+import { ResponseList } from 'src/core/domain/@shared/types/IResponse';
 
 import { outputGetAllJobsDTO } from './get.all.job.dto';
-import { QueryParams } from 'src/core/shared/interfaces/query-params/query-params.interface';
+import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 
 export class GetAllJobsUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}
