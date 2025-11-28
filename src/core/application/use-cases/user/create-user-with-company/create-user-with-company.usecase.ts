@@ -1,13 +1,13 @@
 import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
 import { ERole } from 'src/core/shared/utils/enums/ERole';
-import { CompanyInterfaceRepository } from 'src/core/domain/entities/company/repository/company.repository.interface';
+import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 import {
   inputCreateUserWithCompanyDTO,
   outputCreateUserWithCompanyDTO,
 } from './create-user-with-company.dto';
-import { CompanyFactory } from 'src/core/domain/entities/company/factory/company.factory';
-import { Company } from 'src/core/domain/entities/company/entity/company.entity';
-import { User } from 'src/core/domain/entities/user/entity/user.entity';
+import { CompanyFactory } from 'src/core/domain/company/factory/company.factory';
+import { Company } from 'src/core/domain/company/entity/company.entity';
+import { User } from 'src/core/domain/user/entity/user.entity';
 
 export class CreateUserWithCompanyUseCase {
   constructor(

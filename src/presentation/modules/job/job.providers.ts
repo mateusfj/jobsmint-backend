@@ -1,5 +1,5 @@
 import { JobRepository } from 'src/infrastructure/repositories/typeorm/jobs/jobs.repository';
-import { JOB_REPOSITORY_INTERFACE } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
+import { JOB_REPOSITORY_INTERFACE } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { CreateJobUseCase } from 'src/core/application/use-cases/job/create-job/create.job.usecase';
 import { GetAllJobsUseCase } from 'src/core/application/use-cases/job/get-all-jobs/get.all.job.usecase';
 import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';

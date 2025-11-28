@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CompanyModel } from './companies.model';
-import { CompanyInterfaceRepository } from 'src/core/domain/entities/company/repository/company.repository.interface';
-import { Company } from 'src/core/domain/entities/company/entity/company.entity';
+import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
+import { Company } from 'src/core/domain/company/entity/company.entity';
 import { ResponseList } from 'src/core/shared/types/IResponse';
-import { CompanyFactory } from 'src/core/domain/entities/company/factory/company.factory';
+import { CompanyFactory } from 'src/core/domain/company/factory/company.factory';
 import { BaseFindAllService } from 'src/infrastructure/repositories/typeorm/services/base-find-all.service';
 import { BaseFindOneService } from 'src/infrastructure/repositories/typeorm/services/base-find-one.service';
 

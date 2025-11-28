@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JobModel } from './jobs.model';
-import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
-import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
+import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
+import { Job } from 'src/core/domain/jobs/entity/job.entity';
 import { ResponseList } from 'src/core/shared/types/IResponse';
-import { JobFactory } from 'src/core/domain/entities/jobs/factory/job.factory';
+import { JobFactory } from 'src/core/domain/jobs/factory/job.factory';
 import { BaseFindAllService } from 'src/infrastructure/repositories/typeorm/services/base-find-all.service';
 import { BaseFindOneService } from '../services/base-find-one.service';
 

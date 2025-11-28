@@ -1,4 +1,4 @@
-import { User } from 'src/core/domain/entities/user/entity/user.entity';
+import { User } from 'src/core/domain/user/entity/user.entity';
 import {
   AccessTokenPayload,
   JwtInterface,

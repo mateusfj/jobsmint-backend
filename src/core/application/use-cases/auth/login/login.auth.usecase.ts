@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { UserInterfaceRepository } from 'src/core/domain/entities/user/repository/user.repository.interface';
+import { UserInterfaceRepository } from 'src/core/domain/user/repository/user.repository.interface';
 import { inputLoginAuthDTO, outputLoginAuthDTO } from './login.auth.dto';
 import { CacheInterface } from 'src/core/shared/interfaces/cache/cache.interface';
 import {

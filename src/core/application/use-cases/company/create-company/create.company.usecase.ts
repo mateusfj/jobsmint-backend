@@ -1,10 +1,10 @@
-import { CompanyInterfaceRepository } from 'src/core/domain/entities/company/repository/company.repository.interface';
+import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 import {
   inputCreateCompanyDTO,
   outputCreateCompanyDTO,
 } from './create.company.dto';
-import { CompanyFactory } from 'src/core/domain/entities/company/factory/company.factory';
-import { Company } from 'src/core/domain/entities/company/entity/company.entity';
+import { CompanyFactory } from 'src/core/domain/company/factory/company.factory';
+import { Company } from 'src/core/domain/company/entity/company.entity';
 
 export class CreateCompanyUseCase {
   constructor(private readonly companyRepository: CompanyInterfaceRepository) {}

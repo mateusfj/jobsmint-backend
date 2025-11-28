@@ -1,4 +1,4 @@
-import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
+import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { ResponseList } from 'src/core/shared/types/IResponse';
 
 import { outputGetAllJobsDTO } from './get.all.job.dto';

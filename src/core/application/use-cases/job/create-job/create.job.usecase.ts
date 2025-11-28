@@ -1,7 +1,7 @@
-import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
+import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { inputCreateJobDTO, outputCreateJobDTO } from './create.job.dto';
-import { JobFactory } from 'src/core/domain/entities/jobs/factory/job.factory';
-import { Job } from 'src/core/domain/entities/jobs/entity/job.entity';
+import { JobFactory } from 'src/core/domain/jobs/factory/job.factory';
+import { Job } from 'src/core/domain/jobs/entity/job.entity';
 
 export class CreateJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}

@@ -1,4 +1,4 @@
-import { UserInterfaceRepository } from 'src/core/domain/entities/user/repository/user.repository.interface';
+import { UserInterfaceRepository } from 'src/core/domain/user/repository/user.repository.interface';
 import { inputForgotAuthDTO, outputForgotAuthDTO } from './forgot.auth.dto';
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
 import { TokenServiceInterface } from 'src/core/application/shared/interfaces/token/token.service.interface';

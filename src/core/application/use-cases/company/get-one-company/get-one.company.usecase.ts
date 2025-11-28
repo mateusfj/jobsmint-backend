@@ -1,4 +1,4 @@
-import { CompanyInterfaceRepository } from 'src/core/domain/entities/company/repository/company.repository.interface';
+import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 import { inputGetOneCompanyDTO } from './get-one.company.dto';
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';

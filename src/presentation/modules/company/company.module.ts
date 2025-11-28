@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { COMPANY_PROVIDERS } from './company.providers';
 import { CompanyController } from './company.controller';
 import { CreateCompanyUseCase } from 'src/core/application/use-cases/company/create-company/create.company.usecase';
-import { COMPANY_REPOSITORY_INTERFACE } from 'src/core/domain/entities/company/repository/company.repository.interface';
+import { COMPANY_REPOSITORY_INTERFACE } from 'src/core/domain/company/repository/company.repository.interface';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CompanyModel])],

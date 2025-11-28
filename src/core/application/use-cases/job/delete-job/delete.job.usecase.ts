@@ -1,6 +1,6 @@
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
 import { inputDeleteJobDTO, outputDeleteJobDTO } from './delete.job.dto';
-import { JobInterfaceRepository } from 'src/core/domain/entities/jobs/repository/job.repository.interface';
+import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
 
 export class DeleteJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}

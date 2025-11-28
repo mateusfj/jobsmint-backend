@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 import { UserModel } from './user.model';
-import { UserInterfaceRepository } from 'src/core/domain/entities/user/repository/user.repository.interface';
-import { User } from 'src/core/domain/entities/user/entity/user.entity';
+import { UserInterfaceRepository } from 'src/core/domain/user/repository/user.repository.interface';
+import { User } from 'src/core/domain/user/entity/user.entity';
 import { NotFoundDomainException } from 'src/core/shared/exceptions/domain.exceptions';
 
 @Injectable()

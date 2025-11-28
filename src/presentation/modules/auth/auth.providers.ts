@@ -5,7 +5,7 @@ import { ResetPasswordAuthUseCase } from 'src/core/application/use-cases/auth/re
 import {
   USER_REPOSITORY_INTERFACE,
   UserInterfaceRepository,
-} from 'src/core/domain/entities/user/repository/user.repository.interface';
+} from 'src/core/domain/user/repository/user.repository.interface';
 import {
   JWT_INTERFACE,
   JwtInterface,
@@ -29,7 +29,7 @@ import { CreateUserWithCompanyUseCase } from 'src/core/application/use-cases/use
 import {
   COMPANY_REPOSITORY_INTERFACE,
   CompanyInterfaceRepository,
-} from 'src/core/domain/entities/company/repository/company.repository.interface';
+} from 'src/core/domain/company/repository/company.repository.interface';
 
 export const PROVIDERS = [
   {

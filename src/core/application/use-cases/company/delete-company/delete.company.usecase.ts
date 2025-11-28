@@ -3,7 +3,7 @@ import {
   inputDeleteCompanyDTO,
   outputDeleteCompanyDTO,
 } from './delete.company.dto';
-import { CompanyInterfaceRepository } from 'src/core/domain/entities/company/repository/company.repository.interface';
+import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 
 export class DeleteCompanyUseCase {
   constructor(private readonly companyRepository: CompanyInterfaceRepository) {}
