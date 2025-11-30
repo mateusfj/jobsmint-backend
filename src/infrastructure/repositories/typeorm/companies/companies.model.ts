@@ -3,26 +3,42 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserModel } from '../user/user.model';
 
 @Entity()
 export class CompanyModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @ManyToOne(() => UserModel, (user) => user.id)
+  @JoinColumn({ name: 'owner_id' })
+  owner: UserModel;
+
   @Column()
-  user_id: string;
+  owner_id: string;
 
   @Column()
   corporate_reason: string;
 
   @Column()
-  cnpj: string;
+  fantasy_name: string;
 
   @Column()
-  description: string;
+  industry: string;
+
+  @Column({ type: 'varchar' })
+  phone: string;
+
+  @Column({ type: 'varchar' })
+  cnpj: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  description: string | null;
 
   @Column({ type: 'varchar', nullable: true })
   website: string | null;
@@ -30,12 +46,33 @@ export class CompanyModel {
   @Column({ type: 'varchar', nullable: true })
   logo_url: string | null;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @Column({ type: 'int', nullable: true })
+  number: number | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  street: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  neighborhood: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  complement: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  city: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  state: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  zip_code: string | null;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   @DeleteDateColumn()
-  deletedAt?: Date;
+  deleted_at?: Date;
 }

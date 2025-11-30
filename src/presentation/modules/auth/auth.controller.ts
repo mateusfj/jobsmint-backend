@@ -114,14 +114,21 @@ export class AuthController {
     @Body() body: CreateUserWithCompanyDto,
   ): Promise<CreateUserWithCompanyResponseDto> {
     const input: inputCreateUserWithCompanyDTO = {
-      name: body.name,
-      email: body.email,
-      password: body.password,
-      corporate_reason: body.corporate_reason,
-      cnpj: body.cnpj,
-      description: body.description,
-      website: body.website,
-      logo_url: body.logo_url,
+      company: {
+        owner_id: body.company.owner_id,
+        corporate_reason: body.company.corporate_reason,
+        fantasy_name: body.company.fantasy_name,
+        industry: body.company.industry,
+        cnpj: body.company.cnpj,
+        address: body.company.address,
+        phone: body.company.phone,
+      },
+      user: {
+        name: body.user.name,
+        email: body.user.email,
+        password: body.user.password,
+        role: body.user.role,
+      },
     };
     return await this.createUserWithCompanyUseCase.execute(input);
   }

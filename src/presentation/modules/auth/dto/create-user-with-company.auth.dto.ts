@@ -1,55 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  IsUrl,
-  IsOptional,
-  MinLength,
-} from 'class-validator';
-import { ResponseRegisterUserAuthDto } from './create.auth.dto';
+  RegisterUserAuthDto,
+  ResponseRegisterUserAuthDto,
+} from './create.auth.dto';
+import { CreateCompanyDto } from '../../company/dto/create.company.dto';
 
 export class CreateUserWithCompanyDto {
-  @ApiProperty({ example: 'Nome da empresa' })
-  @IsString()
-  @IsNotEmpty()
-  name: string;
+  @ApiProperty({ type: RegisterUserAuthDto })
+  user: RegisterUserAuthDto;
 
-  @ApiProperty({ example: 'contato@empresa.com' })
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @ApiProperty({ example: 'senhaSegura123' })
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(6)
-  password: string;
-
-  @ApiProperty({ example: 'Empresa S/A' })
-  @IsString()
-  @IsNotEmpty()
-  corporate_reason: string;
-
-  @ApiProperty({ example: '12.345.678/0001-90' })
-  @IsString()
-  @IsNotEmpty()
-  cnpj: string;
-
-  @ApiProperty({ example: 'Descrição da empresa' })
-  @IsString()
-  @IsNotEmpty()
-  description: string;
-
-  @ApiProperty({ example: 'https://empresa.com' })
-  @IsUrl()
-  @IsOptional()
-  website?: string | null;
-
-  @ApiProperty({ example: 'https://empresa.com/logo.png' })
-  @IsUrl()
-  @IsOptional()
-  logo_url?: string | null;
+  @ApiProperty({ type: CreateCompanyDto })
+  company: CreateCompanyDto;
 }
 
 export class RegisterCompanyResponseDto {
@@ -57,7 +18,7 @@ export class RegisterCompanyResponseDto {
   id: string;
 
   @ApiProperty({ example: 'user-uuid' })
-  user_id: string;
+  owner_id: string;
 
   @ApiProperty({ example: 'Empresa S/A' })
   corporate_reason: string;
@@ -76,9 +37,9 @@ export class RegisterCompanyResponseDto {
 }
 
 export class CreateUserWithCompanyResponseDto {
-  @ApiProperty({ type: [RegisterCompanyResponseDto] })
+  @ApiProperty({ type: RegisterCompanyResponseDto })
   company: RegisterCompanyResponseDto;
 
-  @ApiProperty({ type: [ResponseRegisterUserAuthDto] })
+  @ApiProperty({ type: ResponseRegisterUserAuthDto })
   user: ResponseRegisterUserAuthDto;
 }

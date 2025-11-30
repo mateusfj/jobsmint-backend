@@ -34,7 +34,7 @@ export class RegisterUserAuthDto implements inputRegisterUserAuthDTO {
   password: string;
 
   @ApiProperty({
-    example: 'user',
+    example: 'company',
     description:
       'Cargo do usuário que pode ser user, admin, recruiter ou company',
   })

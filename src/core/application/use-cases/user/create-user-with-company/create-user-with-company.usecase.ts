@@ -1,5 +1,4 @@
 import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
-import { ERole } from 'src/core/domain/@shared/enums/ERole';
 import { CompanyInterfaceRepository } from 'src/core/domain/company/repository/company.repository.interface';
 import {
   inputCreateUserWithCompanyDTO,
@@ -7,7 +6,7 @@ import {
 } from './create-user-with-company.dto';
 import { CompanyFactory } from 'src/core/domain/company/factory/company.factory';
 import { Company } from 'src/core/domain/company/entity/company.entity';
-import { User } from 'src/core/domain/user/entity/user.entity';
+import { Address } from 'src/core/domain/value-objects/address/entity/address.entity';
 
 export class CreateUserWithCompanyUseCase {
   constructor(
@@ -19,32 +18,33 @@ export class CreateUserWithCompanyUseCase {
     input: inputCreateUserWithCompanyDTO,
   ): Promise<outputCreateUserWithCompanyDTO> {
     const createdUser = await this.createUserUseCase.execute({
-      name: input.name,
-      email: input.email,
-      password: input.password,
-      role: ERole.COMPANY,
-    } as User);
+      name: input.user.name,
+      email: input.user.email,
+      password: input.user.password,
+      role: input.user.role,
+    });
+
+    const newAddress = new Address(input.company.address);
 
     const newCompany: Company = CompanyFactory.create({
-      user_id: createdUser.id,
-      corporate_reason: input.corporate_reason,
-      cnpj: input.cnpj,
-      description: input.description,
-      website: input.website ?? null,
-      logo_url: input.logo_url ?? null,
-    } as Company);
+      owner_id: createdUser.id,
+      corporate_reason: input.company.corporate_reason,
+      cnpj: input.company.cnpj,
+      fantasy_name: input.company.fantasy_name,
+      industry: input.company.industry,
+      phone: input.company.phone,
+    });
 
+    newCompany.setAddress(newAddress);
     await this.companyRepository.create(newCompany);
 
     return {
       company: {
         id: newCompany.id,
-        user_id: createdUser.id,
+        owner_id: createdUser.id,
         corporate_reason: newCompany.corporate_reason,
         cnpj: newCompany.cnpj,
-        description: newCompany.description,
-        website: newCompany.website,
-        logo_url: newCompany.logo_url,
+        description: '',
       },
       user: {
         id: createdUser.id,

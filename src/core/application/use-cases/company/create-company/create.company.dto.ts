@@ -1,10 +1,13 @@
+import { IAddress } from 'src/core/domain/value-objects/address/entity/address.entity';
+
 export interface inputCreateCompanyDTO {
-  user_id: string;
+  owner_id: string;
   corporate_reason: string;
   cnpj: string;
-  description: string;
-  website?: string | null;
-  logo_url?: string | null;
+  fantasy_name: string;
+  industry: string;
+  phone: string;
+  address: IAddress;
 }
 
 export interface outputCreateCompanyDTO {

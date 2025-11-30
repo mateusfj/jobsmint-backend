@@ -46,18 +46,41 @@ export class CompanyRepository implements CompanyInterfaceRepository {
   async create(company: Company): Promise<void> {
     await this.companiesRepository.save({
       id: company.id,
-      user_id: company.user_id,
+      owner_id: company.owner_id,
       corporate_reason: company.corporate_reason,
       cnpj: company.cnpj,
-      description: company.description,
+      fantasy_name: company.fantasy_name,
+      industry: company.industry,
       website: company.website,
       logo_url: company.logo_url,
+      phone: company.phone,
+      city: company.address?.city ?? null,
+      description: company.description ?? null,
+      complement: company.address?.complement ?? null,
+      neighborhood: company.address?.neighborhood ?? null,
+      number: company.address?.number ?? null,
+      state: company.address?.state ?? null,
+      street: company.address?.street ?? null,
+      zip_code: company.address?.zip_code ?? null,
     });
   }
 
   async findAll(): Promise<Company[] | null> {
     const companies = await this.companiesRepository.find();
-    return companies.map((company) => CompanyFactory.create(company));
+    return companies.map((company) =>
+      CompanyFactory.create({
+        id: company.id,
+        owner_id: company.owner_id,
+        corporate_reason: company.corporate_reason,
+        fantasy_name: company.fantasy_name,
+        industry: company.industry,
+        phone: company.phone,
+        cnpj: company.cnpj,
+        description: company.description,
+        website: company.website,
+        logo_url: company.logo_url,
+      }),
+    );
   }
 
   async findOne(id: string): Promise<Company | null> {
@@ -67,7 +90,18 @@ export class CompanyRepository implements CompanyInterfaceRepository {
       return null;
     }
 
-    return CompanyFactory.create(company);
+    return CompanyFactory.create({
+      id: company.id,
+      owner_id: company.owner_id,
+      corporate_reason: company.corporate_reason,
+      fantasy_name: company.fantasy_name,
+      industry: company.industry,
+      cnpj: company.cnpj,
+      phone: company.phone,
+      description: company.description,
+      website: company.website,
+      logo_url: company.logo_url,
+    });
   }
 
   async delete(id: string): Promise<void> {
@@ -76,7 +110,6 @@ export class CompanyRepository implements CompanyInterfaceRepository {
 
   async update(company: Company): Promise<void> {
     await this.companiesRepository.update(company.id, {
-      user_id: company.user_id,
       corporate_reason: company.corporate_reason,
       cnpj: company.cnpj,
       description: company.description,
