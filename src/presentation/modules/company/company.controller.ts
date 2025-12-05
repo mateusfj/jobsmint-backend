@@ -1,17 +1,18 @@
-import { Controller, Body, Get, Delete, Param, Query } from '@nestjs/common';
-import { GetAllCompaniesUseCase } from 'src/core/application/use-cases/company/get-all-companies/get-all.company.usecase';
-import { GetOneCompanyUseCase } from 'src/core/application/use-cases/company/get-one-company/get-one.company.usecase';
-import { DeleteCompanyUseCase } from 'src/core/application/use-cases/company/delete-company/delete.company.usecase';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { inputDeleteCompanyDTO } from 'src/core/application/use-cases/company/delete-company/delete.company.dto';
+import { DeleteCompanyUseCase } from 'src/core/application/use-cases/company/delete-company/delete.company.usecase';
+import { GetAllCompaniesUseCase } from 'src/core/application/use-cases/company/get-all-companies/get-all.company.usecase';
 import { inputGetOneCompanyDTO } from 'src/core/application/use-cases/company/get-one-company/get-one.company.dto';
-import { DeleteCompanyResponseDto } from './dto/delete.company.dto';
-import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
-import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
+import { GetOneCompanyUseCase } from 'src/core/application/use-cases/company/get-one-company/get-one.company.usecase';
 import {
   ResponseItem,
   ResponseList,
 } from 'src/core/domain/@shared/types/IResponse';
+import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
+import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
+import { DeleteCompanyResponseDto } from './dto/delete.company.dto';
 
+import { ParsedQuery } from 'src/utils/decorators/create-query-decorator';
 import { SwaggerDocs } from 'src/utils/decorators/swagger.decorator';
 import { COMPANY_SCHEMA } from 'src/utils/swagger/schema/company.schema';
 
@@ -25,7 +26,7 @@ export class CompanyController {
 
   @Get()
   @SwaggerDocs(COMPANY_SCHEMA.getAll)
-  getAll(@Query() query: QueryParamsDto): Promise<ResponseList<any>> {
+  getAll(@ParsedQuery() query: QueryParamsDto): Promise<ResponseList<any>> {
     return this.getAllCompaniesUseCase.execute(query);
   }
 

@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsOptional, IsString, IsEnum } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 
 export class QueryParamsDto implements QueryParams {
@@ -17,9 +17,16 @@ export class QueryParamsDto implements QueryParams {
 
   @IsOptional()
   @Type(() => Number)
-  page: number;
+  page?: number;
 
   @IsOptional()
   @Type(() => Number)
-  limit: number;
+  limit?: number;
+
+  @IsOptional()
+  filter?: Record<string, Record<string, any>>;
+
+  @IsOptional()
+  @IsString()
+  relations?: string;
 }

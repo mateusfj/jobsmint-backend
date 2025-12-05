@@ -1,16 +1,14 @@
-import { JobRepository } from 'src/infrastructure/repositories/typeorm/jobs/jobs.repository';
-import { JOB_REPOSITORY_INTERFACE } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { CreateJobUseCase } from 'src/core/application/use-cases/job/create-job/create.job.usecase';
-import { GetAllJobsUseCase } from 'src/core/application/use-cases/job/get-all-jobs/get.all.job.usecase';
-import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
 import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/delete.job.usecase';
+import { GetAllJobsUseCase } from 'src/core/application/use-cases/job/get-all-jobs/get.all.job.usecase';
 import { GetOneJobUseCase } from 'src/core/application/use-cases/job/get-one-job/get-one.job.usecase';
-import { BaseFindAllService } from 'src/infrastructure/repositories/typeorm/services/base-find-all.service';
-import { BaseFindOneService } from 'src/infrastructure/repositories/typeorm/services/base-find-one.service';
+import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
+import { JOB_REPOSITORY_INTERFACE } from 'src/core/domain/jobs/repository/job.repository.interface';
+import { JobRepository } from 'src/infrastructure/repositories/typeorm/jobs/jobs.repository';
+import { TYPEORM_SERVICES_PROVIDERS } from 'src/infrastructure/repositories/typeorm/services/typeorm-services.providers';
 
 export const JOB_PROVIDERS = [
-  BaseFindAllService,
-  BaseFindOneService,
+  ...TYPEORM_SERVICES_PROVIDERS,
   JobRepository,
   {
     provide: JOB_REPOSITORY_INTERFACE,
