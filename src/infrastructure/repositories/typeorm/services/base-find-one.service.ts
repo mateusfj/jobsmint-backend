@@ -1,50 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { QueryParamsGetOne } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
-import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
-import { RelationsParser } from './parser/relations.parser';
+import {
+  EntityMetadata,
+  ObjectLiteral,
+  Repository,
+  SelectQueryBuilder,
+} from 'typeorm';
 
 @Injectable()
 export class BaseFindOneService<T extends ObjectLiteral> {
-  constructor(private readonly relationsParser: RelationsParser) {}
-
   async findOneById(
     repository: Repository<T>,
     alias: string,
     id: string | number,
-    params?: QueryParamsGetOne,
+    params: QueryParamsGetOne,
   ): Promise<T | null> {
     const query: SelectQueryBuilder<T> = repository.createQueryBuilder(alias);
     const metadata = repository.metadata;
-    const verifyColumns = metadata.columns.map((column) => column.propertyName);
+    const validColumns = metadata.columns.map((column) => column.propertyName);
+    const validRelations = metadata.relations.map(
+      (relation) => relation.propertyName,
+    );
 
-    const { select, relations } = params ?? {};
+    const { select, relations } = params;
 
     const options = {
       select: select ? select.split(',') : undefined,
-      relations: relations ?? '',
+      relations: relations ? relations.split(',') : undefined,
     };
 
-    // Aplicar seleção de colunas
-    if (options.select) {
-      options.select.forEach((field) => {
-        if (!verifyColumns.includes(field)) {
-          throw new NotFoundDomainException(`Invalid field: ${field}`);
-        }
-      });
-      const columns = options.select.map((field) => `${alias}.${field}`);
-      query.select(columns);
-    }
+    //Aplicar relacionamentos
+    this.applyRelations(options.relations, validRelations, query, alias);
 
-    // Aplicar relacionamentos
-    const parsedRelations = this.relationsParser.parseRelations(
+    // Aplicar seleção de colunas
+    this.applySelectFields(
       options.relations,
+      options.select,
+      validRelations,
+      metadata,
+      validColumns,
+      alias,
+      query,
     );
-    if (Object.keys(parsedRelations).length > 0) {
-      for (const relation of Object.keys(parsedRelations)) {
-        query.leftJoinAndSelect(`${alias}.${relation}`, relation);
-      }
-    }
 
     const primaryColumn = metadata.primaryColumns[0]?.propertyName;
 
@@ -59,5 +57,86 @@ export class BaseFindOneService<T extends ObjectLiteral> {
     const data = await query.getOne();
 
     return data;
+  }
+
+  private applySelectFields(
+    relations: string[] | undefined,
+    select: string[] | undefined,
+    validRelations: string[],
+    metadata: EntityMetadata,
+    validColumns: string[],
+    alias: string,
+    query: SelectQueryBuilder<T>,
+  ) {
+    if (select) {
+      const selectFields: string[] = [];
+
+      select.map((field: string) => {
+        if (field.includes('.')) {
+          const [relation, column] = field.split('.');
+
+          if (!relations || !relations.includes(relation)) {
+            throw new BadRequestException(
+              `A relação '${relation}' não foi incluída nas relações da consulta`,
+            );
+          }
+
+          if (!validRelations.includes(relation)) {
+            throw new BadRequestException(
+              `A relação '${relation}' não existe na entidade '${metadata.name}'`,
+            );
+          }
+
+          const relationMetadata =
+            metadata.findRelationWithPropertyPath(relation);
+
+          if (!relationMetadata) {
+            throw new BadRequestException(
+              `Relação '${relation}' não encontrada`,
+            );
+          }
+
+          const relationColumns =
+            relationMetadata.inverseEntityMetadata.columns.map(
+              (col) => col.propertyName,
+            );
+
+          if (!relationColumns.includes(column)) {
+            throw new BadRequestException(
+              `A coluna '${column}' não existe na relação '${relation}'`,
+            );
+          }
+
+          // Adiciona apenas a coluna desejada da relação
+          selectFields.push(`${relation}.${column}`);
+        } else {
+          if (!validColumns.includes(field)) {
+            throw new BadRequestException(
+              `O campo '${field}' não existe na entidade '${metadata.name}'`,
+            );
+          }
+          selectFields.push(`${alias}.${field}`);
+        }
+      });
+
+      // Aplica todos os selects construídos
+      query.select(selectFields);
+    }
+  }
+
+  private applyRelations(
+    relations: string[] | undefined,
+    validRelations: string[],
+    query: SelectQueryBuilder<T>,
+    alias: string,
+  ) {
+    if (relations) {
+      relations.map((relation) => {
+        if (!validRelations.includes(relation)) {
+          throw new NotFoundDomainException(`Invalid relation: ${relation}`);
+        }
+        query.leftJoinAndSelect(`${alias}.${relation}`, relation);
+      });
+    }
   }
 }

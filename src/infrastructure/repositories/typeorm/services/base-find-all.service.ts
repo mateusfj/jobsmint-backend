@@ -2,16 +2,17 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { ResponseList } from 'src/core/domain/@shared/types/IResponse';
-import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
+import {
+  EntityMetadata,
+  ObjectLiteral,
+  Repository,
+  SelectQueryBuilder,
+} from 'typeorm';
 import { FilterParser } from './parser/filter.parser';
-import { RelationsParser } from './parser/relations.parser';
 
 @Injectable()
 export class BaseFindAllService<T extends ObjectLiteral> {
-  constructor(
-    private readonly filterParser: FilterParser,
-    private readonly relationsParser: RelationsParser,
-  ) {}
+  constructor(private readonly filterParser: FilterParser) {}
 
   async findAllBase(
     repository: Repository<T>,
@@ -37,24 +38,83 @@ export class BaseFindAllService<T extends ObjectLiteral> {
     };
 
     //Aplicar relacionamentos
-    if (options.relations) {
-      options.relations.map((relation) => {
-        if (!validRelations.includes(relation)) {
-          throw new NotFoundDomainException(`Invalid relation: ${relation}`);
-        }
-        query.leftJoin(`${alias}.${relation}`, relation);
-      });
-    }
+    this.applyRelations(options.relations, validRelations, query, alias);
 
     // Aplicar seleção de colunas
-    if (options.select) {
+    this.applySelectFields(
+      options.relations,
+      options.select,
+      validRelations,
+      metadata,
+      validColumns,
+      alias,
+      query,
+    );
+
+    // Aplicar filtros dinâmicos
+    const whereConditions = this.filterParser.parseFilters(options.filter);
+    if (Object.keys(whereConditions).length > 0) {
+      query.where(whereConditions);
+    }
+
+    // Aplicar ordenação
+    this.applySorting(options.sortBy, options.orderBy, query, alias);
+
+    // Aplicar paginação
+    this.applyPagination(options.page, options.limit, query);
+
+    const [data, total] = await query.getManyAndCount();
+
+    return {
+      data,
+      metadata: {
+        total,
+      },
+    };
+  }
+
+  private applyPagination(
+    page: number,
+    limit: number,
+    query: SelectQueryBuilder<T>,
+  ) {
+    if (page !== undefined && limit !== undefined) {
+      const skip = page * limit;
+      query.skip(skip).take(limit);
+    }
+  }
+
+  private applySorting(
+    sortBy: string,
+    orderBy: 'asc' | 'desc',
+    query: SelectQueryBuilder<T>,
+    alias: string,
+  ) {
+    if (sortBy) {
+      query.orderBy(
+        `${alias}.${sortBy}`,
+        orderBy.toUpperCase() as 'ASC' | 'DESC',
+      );
+    }
+  }
+
+  private applySelectFields(
+    relations: string[] | undefined,
+    select: string[] | undefined,
+    validRelations: string[],
+    metadata: EntityMetadata,
+    validColumns: string[],
+    alias: string,
+    query: SelectQueryBuilder<T>,
+  ) {
+    if (select) {
       const selectFields: string[] = [];
 
-      options.select.map((field: string) => {
+      select.map((field: string) => {
         if (field.includes('.')) {
           const [relation, column] = field.split('.');
 
-          if (!options.relations || !options.relations.includes(relation)) {
+          if (!relations || !relations.includes(relation)) {
             throw new BadRequestException(
               `A relação '${relation}' não foi incluída nas relações da consulta`,
             );
@@ -101,34 +161,21 @@ export class BaseFindAllService<T extends ObjectLiteral> {
       // Aplica todos os selects construídos
       query.select(selectFields);
     }
+  }
 
-    // Aplicar filtros dinâmicos
-    const whereConditions = this.filterParser.parseFilters(options.filter);
-    if (Object.keys(whereConditions).length > 0) {
-      query.where(whereConditions);
+  private applyRelations(
+    relations: string[] | undefined,
+    validRelations: string[],
+    query: SelectQueryBuilder<T>,
+    alias: string,
+  ) {
+    if (relations) {
+      relations.map((relation) => {
+        if (!validRelations.includes(relation)) {
+          throw new NotFoundDomainException(`Invalid relation: ${relation}`);
+        }
+        query.leftJoinAndSelect(`${alias}.${relation}`, relation);
+      });
     }
-
-    // Aplicar ordenação
-    if (options.sortBy) {
-      query.orderBy(
-        `${alias}.${options.sortBy}`,
-        options.orderBy.toUpperCase() as 'ASC' | 'DESC',
-      );
-    }
-
-    // Aplicar paginação
-    if (options.page !== undefined && options.limit !== undefined) {
-      const skip = options.page * options.limit;
-      query.skip(skip).take(options.limit);
-    }
-
-    const [data, total] = await query.getManyAndCount();
-
-    return {
-      data,
-      metadata: {
-        total,
-      },
-    };
   }
 }
