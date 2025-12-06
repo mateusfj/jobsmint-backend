@@ -1,38 +1,40 @@
-import { ForgotAuthUseCase } from 'src/core/application/use-cases/auth/forgot/forgot.auth.usecase';
-import { LoginAuthUseCase } from 'src/core/application/use-cases/auth/login/login.auth.usecase';
-import { RefreshTokenUseCase } from 'src/core/application/use-cases/auth/refresh-token/refresh-token.auth.usecase';
-import { ResetPasswordAuthUseCase } from 'src/core/application/use-cases/auth/reset-password/reset-password.auth.usecase';
-import {
-  USER_REPOSITORY_INTERFACE,
-  UserInterfaceRepository,
-} from 'src/core/domain/user/repository/user.repository.interface';
-import {
-  JWT_INTERFACE,
-  JwtInterface,
-} from 'src/core/application/@shared/interfaces/jwt/jwt.interface';
 import {
   CACHE_INTERFACE,
   CacheInterface,
 } from 'src/core/application/@shared/interfaces/cache/cache.interface';
+import {
+  JWT_INTERFACE,
+  JwtInterface,
+} from 'src/core/application/@shared/interfaces/jwt/jwt.interface';
+import { ForgotAuthUseCase } from 'src/core/application/use-cases/auth/forgot/forgot.auth.usecase';
+import { LoginAuthUseCase } from 'src/core/application/use-cases/auth/login/login.auth.usecase';
+import { RefreshTokenUseCase } from 'src/core/application/use-cases/auth/refresh-token/refresh-token.auth.usecase';
+import { RegisterUserUseCase } from 'src/core/application/use-cases/auth/register/register.auth.usecase';
+import { ResetPasswordAuthUseCase } from 'src/core/application/use-cases/auth/reset-password/reset-password.auth.usecase';
+import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
+import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
+import {
+  USER_REPOSITORY_INTERFACE,
+  UserInterfaceRepository,
+} from 'src/core/domain/user/repository/user.repository.interface';
 import { JwtAuth } from 'src/infrastructure/providers/auth/jwt/jwt.service';
 import { CacheRedis } from 'src/infrastructure/providers/cache/redis/cache.redis';
-import { RegisterUserUseCase } from 'src/core/application/use-cases/auth/register/register.auth.usecase';
-import { UpdatePasswordUserUseCase } from 'src/core/application/use-cases/user/update-password/update-password.user.usecase';
-import { CreateUserUseCase } from 'src/core/application/use-cases/user/create-user/create.user.usecase';
 
 import { TokenService } from 'src/core/application/services/token.service';
 
+import {
+  TOKEN_SERVICE_INTERFACE,
+  TokenServiceInterface,
+} from 'src/core/application/@shared/interfaces/token/token.service.interface';
 import { CreateUserWithCompanyUseCase } from 'src/core/application/use-cases/user/create-user-with-company/create-user-with-company.usecase';
 import {
   COMPANY_REPOSITORY_INTERFACE,
   CompanyInterfaceRepository,
 } from 'src/core/domain/company/repository/company.repository.interface';
-import {
-  TOKEN_SERVICE_INTERFACE,
-  TokenServiceInterface,
-} from 'src/core/application/@shared/interfaces/token/token.service.interface';
+import { AuthGuard } from './auth.guard';
 
 export const PROVIDERS = [
+  AuthGuard,
   {
     provide: TOKEN_SERVICE_INTERFACE,
     useFactory: (jwtService: JwtInterface) => {

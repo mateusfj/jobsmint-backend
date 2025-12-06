@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { inputCreateJobDTO } from 'src/core/application/use-cases/job/create-job/create.job.dto';
 import { CreateJobUseCase } from 'src/core/application/use-cases/job/create-job/create.job.usecase';
@@ -28,12 +29,14 @@ import {
 import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
 import { ParsedQuery } from 'src/utils/decorators/create-query-decorator';
+import { AuthGuard } from '../auth/auth.guard';
 import { DeleteJobResponseDTO } from './dto/delete.job.dto';
 import { GetAllJobsOutputDto } from './dto/get-all.job.dto';
 import { GetOneJobOutputDto } from './dto/get-one.job.dto';
 import { UpdateJobDto } from './dto/update.job.dto';
 
 @Controller('job')
+@UseGuards(AuthGuard)
 export class JobController {
   constructor(
     private readonly createJobUseCase: CreateJobUseCase,

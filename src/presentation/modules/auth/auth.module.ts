@@ -3,13 +3,15 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthController } from './auth.controller';
-import { PROVIDERS } from './auth.providers';
+import { TOKEN_SERVICE_INTERFACE } from 'src/core/application/@shared/interfaces/token/token.service.interface';
+import { CompanyModel } from 'src/infrastructure/repositories/typeorm/companies/companies.model';
 import { UserModel } from 'src/infrastructure/repositories/typeorm/user/user.model';
 import { AppCacheModule } from '../cache/cache.module';
-import { UserModule } from '../user/user.module';
 import { CompanyModule } from '../company/company.module';
-import { CompanyModel } from 'src/infrastructure/repositories/typeorm/companies/companies.model';
+import { UserModule } from '../user/user.module';
+import { AuthController } from './auth.controller';
+import { AuthGuard } from './auth.guard';
+import { PROVIDERS } from './auth.providers';
 
 @Module({
   imports: [
@@ -25,5 +27,6 @@ import { CompanyModel } from 'src/infrastructure/repositories/typeorm/companies/
   ],
   controllers: [AuthController],
   providers: [...PROVIDERS],
+  exports: [AuthGuard, TOKEN_SERVICE_INTERFACE],
 })
 export class AuthModule {}

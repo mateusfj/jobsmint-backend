@@ -1,4 +1,3 @@
-import { User } from 'src/core/domain/user/entity/user.entity';
 import {
   AccessTokenPayload,
   JwtInterface,
@@ -6,6 +5,7 @@ import {
   RefreshTokenPayload,
   ResetPasswordPayload,
 } from 'src/core/application/@shared/interfaces/jwt/jwt.interface';
+import { User } from 'src/core/domain/user/entity/user.entity';
 
 export class TokenService {
   constructor(private readonly jwtService: JwtInterface) {}
