@@ -4,10 +4,12 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  ManyToOne,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { JobModel } from '../jobs/jobs.model';
 import { UserModel } from '../user/user.model';
 
 @Entity()
@@ -15,7 +17,7 @@ export class CompanyModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => UserModel, (user) => user.id)
+  @OneToOne(() => UserModel, (user) => user.id)
   @JoinColumn({ name: 'owner_id' })
   owner: UserModel;
 
@@ -75,4 +77,7 @@ export class CompanyModel {
 
   @DeleteDateColumn()
   deleted_at?: Date;
+
+  @OneToMany(() => JobModel, (job) => job.company)
+  jobs: JobModel[];
 }

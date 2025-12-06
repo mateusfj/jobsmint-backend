@@ -7,9 +7,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { CompanyModel } from '../companies/companies.model';
 
 @Entity()
 export class JobModel {
@@ -49,4 +52,11 @@ export class JobModel {
 
   @DeleteDateColumn()
   deletedAt?: Date;
+
+  @ManyToOne(() => CompanyModel, (company) => company.jobs)
+  @JoinColumn({ name: 'company_id' })
+  company: CompanyModel;
+
+  @Column({ type: 'uuid' })
+  company_id: string;
 }

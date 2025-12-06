@@ -5,6 +5,7 @@ export class JobFactory {
   static create(entity: JobProps): Job {
     const job = new Job({
       id: entity.id ?? uuid(),
+      company_id: entity.company_id,
       title: entity.title,
       description: entity.description,
       salary: entity.salary ?? null,

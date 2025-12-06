@@ -11,6 +11,13 @@ import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
 
 export class CreateJobDto implements inputCreateJobDTO {
   @ApiProperty({
+    example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6',
+  })
+  @IsString()
+  @IsNotEmpty()
+  company_id: string;
+
+  @ApiProperty({
     example: 'Frontend Developer',
   })
   @IsString()

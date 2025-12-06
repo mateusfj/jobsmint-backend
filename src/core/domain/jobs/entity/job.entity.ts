@@ -1,12 +1,13 @@
 import { BaseEntity } from 'src/core/domain/@shared/base-entity/base-entity.abstract';
-import { NotificationError } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { EEmploymentType } from 'src/core/domain/@shared/enums/EmploymentType';
 import { EStatusJob } from 'src/core/domain/@shared/enums/EStatusJob';
 import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
+import { NotificationError } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { JobValidatorFactory } from '../factory/job.validator.factory';
 
 export interface JobProps {
   id?: string;
+  company_id: string;
   title: string;
   description: string;
   salary: number | null;
@@ -18,6 +19,7 @@ export interface JobProps {
 
 export class Job extends BaseEntity {
   id: string;
+  company_id: string;
   title: string;
   description: string;
   salary: number | null;
@@ -28,6 +30,7 @@ export class Job extends BaseEntity {
 
   constructor({
     id,
+    company_id,
     title,
     description,
     salary,
@@ -38,6 +41,7 @@ export class Job extends BaseEntity {
   }: JobProps) {
     super();
     this.id = id ?? '';
+    this.company_id = company_id;
     this.title = title;
     this.description = description;
     this.salary = salary ?? null;

@@ -1,12 +1,13 @@
+import { Job } from 'src/core/domain/jobs/entity/job.entity';
+import { JobFactory } from 'src/core/domain/jobs/factory/job.factory';
 import { JobInterfaceRepository } from 'src/core/domain/jobs/repository/job.repository.interface';
 import { inputCreateJobDTO, outputCreateJobDTO } from './create.job.dto';
-import { JobFactory } from 'src/core/domain/jobs/factory/job.factory';
-import { Job } from 'src/core/domain/jobs/entity/job.entity';
 
 export class CreateJobUseCase {
   constructor(private readonly jobRepository: JobInterfaceRepository) {}
   async execute(input: inputCreateJobDTO): Promise<outputCreateJobDTO> {
     const newJob: Job = JobFactory.create({
+      company_id: input.company_id,
       title: input.title,
       description: input.description,
       salary: input.salary ?? null,

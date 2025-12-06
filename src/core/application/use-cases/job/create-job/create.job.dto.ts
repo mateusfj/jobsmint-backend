@@ -3,6 +3,7 @@ import { EStatusJob } from 'src/core/domain/@shared/enums/EStatusJob';
 import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
 
 export interface inputCreateJobDTO {
+  company_id: string;
   title: string;
   description: string;
   salary?: number | null;

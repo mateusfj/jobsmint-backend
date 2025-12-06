@@ -4,15 +4,21 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 import { EEmploymentType } from 'src/core/domain/@shared/enums/EmploymentType';
 import { EStatusJob } from 'src/core/domain/@shared/enums/EStatusJob';
 import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
-import { JobProps } from '../entity/job.entity';
-import { ClassValidatorFields } from 'src/core/domain/@shared/validator/class-validator-fields';
 import { Notification } from 'src/core/domain/@shared/notification/notification';
+import { ClassValidatorFields } from 'src/core/domain/@shared/validator/class-validator-fields';
+import { JobProps } from '../entity/job.entity';
 
 export class JobRules {
+  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
+  company_id: string;
+
   @IsString()
   @IsNotEmpty()
   title: string;

@@ -1,36 +1,36 @@
 import {
-  Controller,
-  Post,
   Body,
-  Get,
+  Controller,
   Delete,
+  Get,
   Param,
-  Query,
   Patch,
+  Post,
+  Query,
 } from '@nestjs/common';
-import { CreateJobDto, CreateJobResponseDto } from './dto/create.job.dto';
 import { inputCreateJobDTO } from 'src/core/application/use-cases/job/create-job/create.job.dto';
 import { CreateJobUseCase } from 'src/core/application/use-cases/job/create-job/create.job.usecase';
-import { SwaggerDocs } from 'src/utils/decorators/swagger.decorator';
-import { JOB_SCHEMA } from 'src/utils/swagger/schema/job.schema';
 import { GetAllJobsUseCase } from 'src/core/application/use-cases/job/get-all-jobs/get.all.job.usecase';
 import { GetOneJobUseCase } from 'src/core/application/use-cases/job/get-one-job/get-one.job.usecase';
+import { SwaggerDocs } from 'src/utils/decorators/swagger.decorator';
+import { JOB_SCHEMA } from 'src/utils/swagger/schema/job.schema';
+import { CreateJobDto, CreateJobResponseDto } from './dto/create.job.dto';
 
-import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/delete.job.usecase';
 import { inputDeleteJobDTO } from 'src/core/application/use-cases/job/delete-job/delete.job.dto';
+import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/delete.job.usecase';
 import { inputGetOneJobDTO } from 'src/core/application/use-cases/job/get-one-job/get-one.job.dto';
-import { DeleteJobResponseDTO } from './dto/delete.job.dto';
-import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
-import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
+import { inputUpdateJobDTO } from 'src/core/application/use-cases/job/update-job/update.job.dto';
+import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
 import {
   ResponseItem,
   ResponseList,
 } from 'src/core/domain/@shared/types/IResponse';
-import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
-import { UpdateJobDto } from './dto/update.job.dto';
-import { inputUpdateJobDTO } from 'src/core/application/use-cases/job/update-job/update.job.dto';
-import { GetOneJobOutputDto } from './dto/get-one.job.dto';
+import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
+import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
+import { DeleteJobResponseDTO } from './dto/delete.job.dto';
 import { GetAllJobsOutputDto } from './dto/get-all.job.dto';
+import { GetOneJobOutputDto } from './dto/get-one.job.dto';
+import { UpdateJobDto } from './dto/update.job.dto';
 
 @Controller('job')
 export class JobController {
@@ -46,6 +46,7 @@ export class JobController {
   @SwaggerDocs(JOB_SCHEMA.create)
   create(@Body() createJobDto: CreateJobDto): Promise<CreateJobResponseDto> {
     const input: inputCreateJobDTO = {
+      company_id: createJobDto.company_id,
       title: createJobDto.title,
       description: createJobDto.description,
       salary: createJobDto.salary,
