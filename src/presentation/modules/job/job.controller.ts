@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { inputCreateJobDTO } from 'src/core/application/use-cases/job/create-job/create.job.dto';
@@ -17,6 +18,7 @@ import { SwaggerDocs } from 'src/utils/decorators/swagger.decorator';
 import { JOB_SCHEMA } from 'src/utils/swagger/schema/job.schema';
 import { CreateJobDto, CreateJobResponseDto } from './dto/create.job.dto';
 
+import type { Request } from 'express';
 import { inputDeleteJobDTO } from 'src/core/application/use-cases/job/delete-job/delete.job.dto';
 import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/delete.job.usecase';
 import { inputGetOneJobDTO } from 'src/core/application/use-cases/job/get-one-job/get-one.job.dto';
@@ -65,8 +67,9 @@ export class JobController {
   @SwaggerDocs(JOB_SCHEMA.getAll)
   getAll(
     @ParsedQuery() query: QueryParamsDto,
+    @Req() req: Request,
   ): Promise<ResponseList<GetAllJobsOutputDto>> {
-    return this.getAllJobsUseCase.execute(query);
+    return this.getAllJobsUseCase.execute(query, req.user);
   }
 
   @Get(':id')

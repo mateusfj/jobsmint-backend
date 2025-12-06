@@ -3,7 +3,7 @@ import { AccessTokenPayload } from 'src/core/application/@shared/interfaces/jwt/
 declare global {
   namespace Express {
     interface Request {
-      user?: AccessTokenPayload;
+      user: AccessTokenPayload;
     }
   }
 }

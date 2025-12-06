@@ -1,4 +1,5 @@
 import { JwtSignOptions } from '@nestjs/jwt';
+import { ERole } from 'src/core/domain/@shared/enums/ERole';
 
 export enum JwtTokenType {
   ACCESS = 'access',
@@ -14,7 +15,7 @@ export interface BaseJwtPayload {
 export interface AccessTokenPayload extends BaseJwtPayload {
   name: string;
   email: string;
-  role: string;
+  role: ERole;
 }
 
 export interface RefreshTokenPayload extends BaseJwtPayload {
