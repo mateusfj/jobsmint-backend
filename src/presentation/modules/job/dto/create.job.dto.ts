@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 import {
   inputCreateJobDTO,
@@ -11,8 +17,9 @@ import { EWorkMode } from 'src/core/domain/@shared/enums/EWorkMode';
 
 export class CreateJobDto implements inputCreateJobDTO {
   @ApiProperty({
-    example: '1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6',
+    example: '7a8a1c5f-8005-4bdb-b362-704e686a27ac',
   })
+  @IsUUID()
   @IsString()
   @IsNotEmpty()
   company_id: string;

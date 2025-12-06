@@ -45,13 +45,13 @@ export class JobModel {
   isActive: boolean;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @DeleteDateColumn()
-  deletedAt?: Date;
+  deleted_at?: Date;
 
   @ManyToOne(() => CompanyModel, (company) => company.jobs)
   @JoinColumn({ name: 'company_id' })

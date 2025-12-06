@@ -27,6 +27,7 @@ import {
 } from 'src/core/domain/@shared/types/IResponse';
 import { QueryParamsDto } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-all.dto';
 import { QueryParamsGetOne } from 'src/infrastructure/repositories/typeorm/services/dto/base-find-one.dto';
+import { ParsedQuery } from 'src/utils/decorators/create-query-decorator';
 import { DeleteJobResponseDTO } from './dto/delete.job.dto';
 import { GetAllJobsOutputDto } from './dto/get-all.job.dto';
 import { GetOneJobOutputDto } from './dto/get-one.job.dto';
@@ -60,7 +61,7 @@ export class JobController {
   @Get()
   @SwaggerDocs(JOB_SCHEMA.getAll)
   getAll(
-    @Query() query: QueryParamsDto,
+    @ParsedQuery() query: QueryParamsDto,
   ): Promise<ResponseList<GetAllJobsOutputDto>> {
     return this.getAllJobsUseCase.execute(query);
   }

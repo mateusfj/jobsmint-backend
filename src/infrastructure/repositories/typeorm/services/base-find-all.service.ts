@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { QueryParams } from 'src/core/application/@shared/interfaces/query-params/query-params.interface';
 import { NotFoundDomainException } from 'src/core/domain/@shared/exceptions/domain.exceptions';
 import { ResponseList } from 'src/core/domain/@shared/types/IResponse';
@@ -20,45 +20,92 @@ export class BaseFindAllService<T extends ObjectLiteral> {
   ): Promise<ResponseList<T>> {
     const query: SelectQueryBuilder<T> = repository.createQueryBuilder(alias);
     const metadata = repository.metadata;
-    const verifyColumns = metadata.columns.map((column) => column.propertyName);
+    const validRelations = metadata.relations.map(
+      (relation) => relation.propertyName,
+    );
+    const validColumns = metadata.columns.map((column) => column.propertyName);
 
     const { select, orderBy, page, limit, sortBy, filter, relations } = params;
-
     const options = {
+      relations: relations ? relations.split(',') : undefined,
       select: select ? select.split(',') : undefined,
       orderBy: orderBy || 'asc',
       page: Number(page) || 0,
       limit: limit ? Number(limit) : 10,
-      sortBy: sortBy || 'created_at',
+      sortBy: sortBy ?? '',
       filter: filter || {},
-      relations: relations || '',
     };
+
+    //Aplicar relacionamentos
+    if (options.relations) {
+      options.relations.map((relation) => {
+        if (!validRelations.includes(relation)) {
+          throw new NotFoundDomainException(`Invalid relation: ${relation}`);
+        }
+        query.leftJoin(`${alias}.${relation}`, relation);
+      });
+    }
 
     // Aplicar seleção de colunas
     if (options.select) {
-      options.select.forEach((field) => {
-        if (!verifyColumns.includes(field)) {
-          throw new NotFoundDomainException(`Invalid field: ${field}`);
+      const selectFields: string[] = [];
+
+      options.select.map((field: string) => {
+        if (field.includes('.')) {
+          const [relation, column] = field.split('.');
+
+          if (!options.relations || !options.relations.includes(relation)) {
+            throw new BadRequestException(
+              `A relação '${relation}' não foi incluída nas relações da consulta`,
+            );
+          }
+
+          if (!validRelations.includes(relation)) {
+            throw new BadRequestException(
+              `A relação '${relation}' não existe na entidade '${metadata.name}'`,
+            );
+          }
+
+          const relationMetadata =
+            metadata.findRelationWithPropertyPath(relation);
+
+          if (!relationMetadata) {
+            throw new BadRequestException(
+              `Relação '${relation}' não encontrada`,
+            );
+          }
+
+          const relationColumns =
+            relationMetadata.inverseEntityMetadata.columns.map(
+              (col) => col.propertyName,
+            );
+
+          if (!relationColumns.includes(column)) {
+            throw new BadRequestException(
+              `A coluna '${column}' não existe na relação '${relation}'`,
+            );
+          }
+
+          // Adiciona apenas a coluna desejada da relação
+          selectFields.push(`${relation}.${column}`);
+        } else {
+          if (!validColumns.includes(field)) {
+            throw new BadRequestException(
+              `O campo '${field}' não existe na entidade '${metadata.name}'`,
+            );
+          }
+          selectFields.push(`${alias}.${field}`);
         }
       });
-      const columns = options.select.map((field) => `${alias}.${field}`);
-      query.select(columns);
+
+      // Aplica todos os selects construídos
+      query.select(selectFields);
     }
 
     // Aplicar filtros dinâmicos
     const whereConditions = this.filterParser.parseFilters(options.filter);
     if (Object.keys(whereConditions).length > 0) {
       query.where(whereConditions);
-    }
-
-    // Aplicar relacionamentos
-    const parsedRelations = this.relationsParser.parseRelations(
-      options.relations,
-    );
-    if (Object.keys(parsedRelations).length > 0) {
-      for (const relation of Object.keys(parsedRelations)) {
-        query.leftJoinAndSelect(`${alias}.${relation}`, relation);
-      }
     }
 
     // Aplicar ordenação

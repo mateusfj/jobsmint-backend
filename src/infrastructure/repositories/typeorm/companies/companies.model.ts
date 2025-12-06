@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { JobModel } from '../jobs/jobs.model';
+import { JobModel } from '../jobs/job.model';
 import { UserModel } from '../user/user.model';
 
 @Entity()

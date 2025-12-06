@@ -3,8 +3,10 @@ import { DeleteJobUseCase } from 'src/core/application/use-cases/job/delete-job/
 import { GetAllJobsUseCase } from 'src/core/application/use-cases/job/get-all-jobs/get.all.job.usecase';
 import { GetOneJobUseCase } from 'src/core/application/use-cases/job/get-one-job/get-one.job.usecase';
 import { UpdateJobUseCase } from 'src/core/application/use-cases/job/update-job/update.job.usecase';
+import { COMPANY_REPOSITORY_INTERFACE } from 'src/core/domain/company/repository/company.repository.interface';
 import { JOB_REPOSITORY_INTERFACE } from 'src/core/domain/jobs/repository/job.repository.interface';
-import { JobRepository } from 'src/infrastructure/repositories/typeorm/jobs/jobs.repository';
+import { CompanyRepository } from 'src/infrastructure/repositories/typeorm/companies/companies.repository';
+import { JobRepository } from 'src/infrastructure/repositories/typeorm/jobs/job.repository';
 import { TYPEORM_SERVICES_PROVIDERS } from 'src/infrastructure/repositories/typeorm/services/typeorm-services.providers';
 
 export const JOB_PROVIDERS = [
@@ -16,10 +18,13 @@ export const JOB_PROVIDERS = [
   },
   {
     provide: CreateJobUseCase,
-    useFactory: (jobRepository: JobRepository) => {
-      return new CreateJobUseCase(jobRepository);
+    useFactory: (
+      jobRepository: JobRepository,
+      companyRepository: CompanyRepository,
+    ) => {
+      return new CreateJobUseCase(jobRepository, companyRepository);
     },
-    inject: [JOB_REPOSITORY_INTERFACE],
+    inject: [JOB_REPOSITORY_INTERFACE, COMPANY_REPOSITORY_INTERFACE],
   },
   {
     provide: GetAllJobsUseCase,

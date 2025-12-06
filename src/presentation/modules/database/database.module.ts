@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JobModel } from 'src/infrastructure/repositories/typeorm/jobs/jobs.model';
+import { JobModel } from 'src/infrastructure/repositories/typeorm/jobs/job.model';
 import { UserModel } from 'src/infrastructure/repositories/typeorm/user/user.model';
 import { CompanyModule } from '../company/company.module';
 

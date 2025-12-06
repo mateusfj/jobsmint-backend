@@ -45,6 +45,7 @@ export class JobRules {
 
   constructor(props: JobProps) {
     this.title = props.title;
+    this.company_id = props.company_id;
     this.description = props.description;
     this.salary = props.salary;
     this.workMode = props.workMode;
